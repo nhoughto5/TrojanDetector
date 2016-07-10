@@ -14,7 +14,7 @@ TrojanDetector::~TrojanDetector()
 void TrojanDetector::on_goldenFileBrowse_Clicked() {
 	QString fileName = QFileDialog::getOpenFileName(
 		this,
-		tr("Golden Chip Bin File"),
+		tr("Golden Chip"),
 		"C://", //Default Open
 		"Bin File (*.bin)" //File Filters
 		);

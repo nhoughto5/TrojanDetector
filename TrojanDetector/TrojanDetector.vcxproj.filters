@@ -35,12 +35,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="trojandetector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_trojandetector.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -50,16 +44,22 @@
     <ClCompile Include="GeneratedFiles\qrc_trojandetector.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\trojandetector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="trojandetector.h">
+    <CustomBuild Include="include\trojandetector.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="trojandetector.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="trojandetector.qrc">
+    <CustomBuild Include="Resources\trojandetector.qrc">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Forms\trojandetector.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
