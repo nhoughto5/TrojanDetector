@@ -17,6 +17,8 @@ private:
 
 private slots:
 	void on_goldenFileBrowse_Clicked();
+	void on_singleTrojanBrowse_Clicked();
+	void on_libraryFileBrowse_Clicked();
 };
 
 #endif // TROJANDETECTOR_H
