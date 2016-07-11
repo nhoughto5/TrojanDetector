@@ -36,4 +36,11 @@ void TrojanDetector::on_libraryFileBrowse_Clicked() {
 		"C://", //Default Open
 		"Text File (*.txt)" //File Filters
 		);
+
+	//Convert QString to std::string and send to Library;
+	deviceLib.readLibrary(fileName.toLocal8Bit().constData());
+}
+
+void TrojanDetector::on_analyzeBtn_Clicked() {
+	ui.singleTrojanResponse->setText("Hello");
 }

@@ -18,11 +18,13 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -31,18 +33,21 @@ QT_BEGIN_NAMESPACE
 class Ui_TrojanDetectorClass
 {
 public:
+    QAction *actionExit;
+    QAction *actionAbout;
     QWidget *centralWidget;
     QTabWidget *tabWidget;
     QWidget *SingleTrojanTest;
-    QWidget *widget;
-    QHBoxLayout *horizontalLayout_3;
-    QLabel *label_2;
-    QSpacerItem *horizontalSpacer_3;
-    QPushButton *singleTrojanBrowse;
+    QWidget *horizontalLayoutWidget_2;
+    QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer_2;
-    QPushButton *pushButton;
+    QPushButton *singleTrojanBrowse;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *analyzeBtn;
+    QLabel *label_2;
+    QTextBrowser *singleTrojanResponse;
     QWidget *StatTest;
-    QWidget *widget1;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *groupBox;
@@ -57,6 +62,8 @@ public:
     QSpacerItem *horizontalSpacer_4;
     QPushButton *libraryFileBrowse;
     QMenuBar *menuBar;
+    QMenu *menuFile;
+    QMenu *menuHelp;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -65,6 +72,10 @@ public:
         if (TrojanDetectorClass->objectName().isEmpty())
             TrojanDetectorClass->setObjectName(QStringLiteral("TrojanDetectorClass"));
         TrojanDetectorClass->resize(717, 400);
+        actionExit = new QAction(TrojanDetectorClass);
+        actionExit->setObjectName(QStringLiteral("actionExit"));
+        actionAbout = new QAction(TrojanDetectorClass);
+        actionAbout->setObjectName(QStringLiteral("actionAbout"));
         centralWidget = new QWidget(TrojanDetectorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
@@ -73,46 +84,50 @@ public:
         tabWidget->setAutoFillBackground(true);
         SingleTrojanTest = new QWidget();
         SingleTrojanTest->setObjectName(QStringLiteral("SingleTrojanTest"));
-        widget = new QWidget(SingleTrojanTest);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 394, 25));
-        horizontalLayout_3 = new QHBoxLayout(widget);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        label_2 = new QLabel(widget);
-        label_2->setObjectName(QStringLiteral("label_2"));
+        horizontalLayoutWidget_2 = new QWidget(SingleTrojanTest);
+        horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
+        horizontalLayoutWidget_2->setGeometry(QRect(0, 10, 381, 41));
+        horizontalLayout_4 = new QHBoxLayout(horizontalLayoutWidget_2);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        horizontalSpacer_2 = new QSpacerItem(13, 13, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_3->addWidget(label_2);
+        horizontalLayout_4->addItem(horizontalSpacer_2);
 
-        horizontalSpacer_3 = new QSpacerItem(17, 17, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_3->addItem(horizontalSpacer_3);
-
-        singleTrojanBrowse = new QPushButton(widget);
+        singleTrojanBrowse = new QPushButton(horizontalLayoutWidget_2);
         singleTrojanBrowse->setObjectName(QStringLiteral("singleTrojanBrowse"));
         singleTrojanBrowse->setCursor(QCursor(Qt::PointingHandCursor));
 
-        horizontalLayout_3->addWidget(singleTrojanBrowse);
+        horizontalLayout_4->addWidget(singleTrojanBrowse);
 
-        horizontalSpacer_2 = new QSpacerItem(13, 13, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_3 = new QSpacerItem(17, 17, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_3->addItem(horizontalSpacer_2);
+        horizontalLayout_4->addItem(horizontalSpacer_3);
 
-        pushButton = new QPushButton(widget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        analyzeBtn = new QPushButton(horizontalLayoutWidget_2);
+        analyzeBtn->setObjectName(QStringLiteral("analyzeBtn"));
 
-        horizontalLayout_3->addWidget(pushButton);
+        horizontalLayout_4->addWidget(analyzeBtn);
 
+        label_2 = new QLabel(horizontalLayoutWidget_2);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        horizontalLayout_4->addWidget(label_2);
+
+        singleTrojanResponse = new QTextBrowser(SingleTrojanTest);
+        singleTrojanResponse->setObjectName(QStringLiteral("singleTrojanResponse"));
+        singleTrojanResponse->setGeometry(QRect(0, 60, 691, 151));
+        singleTrojanResponse->setUndoRedoEnabled(false);
         tabWidget->addTab(SingleTrojanTest, QString());
         StatTest = new QWidget();
         StatTest->setObjectName(QStringLiteral("StatTest"));
         tabWidget->addTab(StatTest, QString());
-        widget1 = new QWidget(centralWidget);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(10, 10, 689, 60));
-        horizontalLayout_8 = new QHBoxLayout(widget1);
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 689, 60));
+        horizontalLayout_8 = new QHBoxLayout(layoutWidget);
         horizontalLayout_8->setSpacing(6);
         horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
@@ -120,7 +135,7 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        groupBox = new QGroupBox(widget1);
+        groupBox = new QGroupBox(layoutWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         horizontalLayout = new QHBoxLayout(groupBox);
         horizontalLayout->setSpacing(6);
@@ -150,7 +165,7 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        groupBox_3 = new QGroupBox(widget1);
+        groupBox_3 = new QGroupBox(layoutWidget);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         horizontalLayout_7 = new QHBoxLayout(groupBox_3);
         horizontalLayout_7->setSpacing(6);
@@ -178,11 +193,15 @@ public:
         horizontalLayout_8->addLayout(horizontalLayout_6);
 
         TrojanDetectorClass->setCentralWidget(centralWidget);
-        groupBox->raise();
+        layoutWidget->raise();
         tabWidget->raise();
         menuBar = new QMenuBar(TrojanDetectorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 717, 21));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
+        menuHelp = new QMenu(menuBar);
+        menuHelp->setObjectName(QStringLiteral("menuHelp"));
         TrojanDetectorClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(TrojanDetectorClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -191,9 +210,16 @@ public:
         statusBar->setObjectName(QStringLiteral("statusBar"));
         TrojanDetectorClass->setStatusBar(statusBar);
 
+        menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuHelp->menuAction());
+        menuFile->addAction(actionExit);
+        menuHelp->addAction(actionAbout);
+
         retranslateUi(TrojanDetectorClass);
         QObject::connect(goldenFileBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_goldenFileBrowse_Clicked()));
         QObject::connect(libraryFileBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_libraryFileBrowse_Clicked()));
+        QObject::connect(analyzeBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_analyzeBtn_Clicked()));
+        QObject::connect(actionExit, SIGNAL(triggered()), TrojanDetectorClass, SLOT(close()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -203,10 +229,12 @@ public:
 
     void retranslateUi(QMainWindow *TrojanDetectorClass)
     {
-        TrojanDetectorClass->setWindowTitle(QApplication::translate("TrojanDetectorClass", "TrojanDetector", 0));
-        label_2->setText(QApplication::translate("TrojanDetectorClass", "Please Select the .bin file for the trojan", 0));
+        TrojanDetectorClass->setWindowTitle(QApplication::translate("TrojanDetectorClass", "Trojan Detector", 0));
+        actionExit->setText(QApplication::translate("TrojanDetectorClass", "Exit", 0));
+        actionAbout->setText(QApplication::translate("TrojanDetectorClass", "About", 0));
         singleTrojanBrowse->setText(QApplication::translate("TrojanDetectorClass", "Open", 0));
-        pushButton->setText(QApplication::translate("TrojanDetectorClass", "PushButton", 0));
+        analyzeBtn->setText(QApplication::translate("TrojanDetectorClass", "Analyze", 0));
+        label_2->setText(QApplication::translate("TrojanDetectorClass", "Please Select the .bin file for the trojan", 0));
         tabWidget->setTabText(tabWidget->indexOf(SingleTrojanTest), QApplication::translate("TrojanDetectorClass", "Single Trojan Test", 0));
         tabWidget->setTabText(tabWidget->indexOf(StatTest), QApplication::translate("TrojanDetectorClass", "Automated Statistic Test", 0));
         groupBox->setTitle(QApplication::translate("TrojanDetectorClass", "Golden Chip", 0));
@@ -215,6 +243,8 @@ public:
         groupBox_3->setTitle(QApplication::translate("TrojanDetectorClass", "Library File", 0));
         label_3->setText(QApplication::translate("TrojanDetectorClass", "Add the Library File for the chosen device", 0));
         libraryFileBrowse->setText(QApplication::translate("TrojanDetectorClass", "Open", 0));
+        menuFile->setTitle(QApplication::translate("TrojanDetectorClass", "File", 0));
+        menuHelp->setTitle(QApplication::translate("TrojanDetectorClass", "Help", 0));
     } // retranslateUi
 
 };
