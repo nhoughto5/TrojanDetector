@@ -220,6 +220,7 @@ public:
         QObject::connect(libraryFileBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_libraryFileBrowse_Clicked()));
         QObject::connect(analyzeBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_analyzeBtn_Clicked()));
         QObject::connect(actionExit, SIGNAL(triggered()), TrojanDetectorClass, SLOT(close()));
+        QObject::connect(singleTrojanBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_singleTrojanBrowse_Clicked()));
 
         tabWidget->setCurrentIndex(0);
 

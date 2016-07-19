@@ -137,6 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Analyzer.cpp" />
+    <ClCompile Include="src\Device.cpp" />
+    <ClCompile Include="src\BitStreamReader.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_trojandetector.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -200,6 +203,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Analyzer.h" />
+    <ClInclude Include="include\Device.h" />
+    <ClInclude Include="include\BitStreamReader.h" />
     <ClInclude Include="GeneratedFiles\ui_trojandetector.h" />
     <ClInclude Include="include\Enums.h" />
     <ClInclude Include="include\Library.h" />

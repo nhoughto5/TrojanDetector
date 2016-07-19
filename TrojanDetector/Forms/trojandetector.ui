@@ -329,6 +329,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>singleTrojanBrowse</sender>
+   <signal>clicked()</signal>
+   <receiver>TrojanDetectorClass</receiver>
+   <slot>on_singleTrojanBrowse_Clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>-6</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_goldenFileBrowse_Clicked()</slot>

@@ -2,9 +2,12 @@
 #define TROJANDETECTOR_H
 
 #include <QtWidgets/QMainWindow>
-#include "ui_trojandetector.h"
-#include "Library.h"
 #include <iostream>
+#include "Library.h"
+#include "ui_trojandetector.h"
+#include "BitStreamReader.h"
+#include "Device.h"
+#include "Analyzer.h"
 //Test Change
 class TrojanDetector : public QMainWindow
 {
@@ -17,6 +20,9 @@ public:
 private:
 	Ui::TrojanDetectorClass ui;
 	Library deviceLib;
+	bool libraryFileLoaded, goldenChipFileAnalyzed, targetFileLoaded;
+	BitStreamReader goldenBitReader, targetBitReader;
+	Device goldenDevice, targetDevice;
 private slots:
 	
 	void on_goldenFileBrowse_Clicked();

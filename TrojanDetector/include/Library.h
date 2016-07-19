@@ -16,6 +16,7 @@ public:
 	~Library();
 
 	void readLibrary(std::string fileName);
+	const std::vector<libraryEntry>* getLibrary();
 private:
 	std::vector<libraryEntry> libEntries;
 
