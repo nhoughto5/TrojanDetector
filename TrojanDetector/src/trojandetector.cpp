@@ -98,5 +98,13 @@ void TrojanDetector::on_analyzeBtn_Clicked() {
 }
 
 void TrojanDetector::on_multipleTargetBrowse_Clicked() {
-
+	QString dir = QFileDialog::getExistingDirectory(
+		this, 
+		tr("Target Files"), 
+		"C://", 
+		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	QStringList nameFilter("*.bin");
+	QDir directory(dir);
+	QStringList binFiles = directory.entryList(nameFilter);
+	for (int i = 0; i < binFiles.length(); ++i) ui.binFileViewer->append(QString::fromStdString(std::to_string(i+1)) + ".)  " + binFiles.at(i));
 }

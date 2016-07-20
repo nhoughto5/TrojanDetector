@@ -116,28 +116,15 @@
      <widget class="QWidget" name="horizontalLayoutWidget_3">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
+        <x>12</x>
+        <y>12</y>
         <width>381</width>
-        <height>41</height>
+        <height>25</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <spacer name="horizontalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>13</width>
-           <height>13</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="singleTrojanBrowse_2">
+        <widget class="QPushButton" name="multipleTargetBrowse">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
@@ -174,6 +161,29 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QTextBrowser" name="binFileViewer">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>40</y>
+        <width>381</width>
+        <height>171</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>10</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Statistics</string>
+      </property>
      </widget>
     </widget>
    </widget>
@@ -407,11 +417,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>multipleTargetBrowse</sender>
+   <signal>clicked()</signal>
+   <receiver>TrojanDetectorClass</receiver>
+   <slot>on_multipleTargetBrowse_Clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>197</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>368</x>
+     <y>-15</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_goldenFileBrowse_Clicked()</slot>
   <slot>on_singleTrojanBrowse_Clicked()</slot>
   <slot>on_libraryFileBrowse_Clicked()</slot>
   <slot>on_analyzeBtn_Clicked()</slot>
+  <slot>on_multipleTargetBrowse_Clicked()</slot>
  </slots>
 </ui>
