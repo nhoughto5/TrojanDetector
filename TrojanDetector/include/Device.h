@@ -17,6 +17,8 @@ public:
 	std::map<int, LUT>* getLutMap();
 	void setContainsTrojan(bool x);
 	bool getContainsTrojan();
+	std::vector<LUT> getInfectedList();
+	void setLUTContainsTrojanBool(int offset, bool value);
 private:
 	std::map<int, LUT> lutMap;
 	const std::vector<libraryEntry>* Library;

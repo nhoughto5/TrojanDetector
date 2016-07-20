@@ -12,7 +12,7 @@ public:
 	Analyzer();
 	~Analyzer();
 
-	static bool analyzeSingle(Device Golden, Device Target, const std::vector<libraryEntry>*);
+	static bool analyzeSingle(Device &Golden, Device &Target, const std::vector<libraryEntry>*);
 private:
 };
 

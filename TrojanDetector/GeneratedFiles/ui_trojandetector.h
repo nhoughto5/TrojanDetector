@@ -47,6 +47,13 @@ public:
     QLabel *label_2;
     QTextBrowser *singleTrojanResponse;
     QWidget *StatTest;
+    QWidget *horizontalLayoutWidget_3;
+    QHBoxLayout *horizontalLayout_5;
+    QSpacerItem *horizontalSpacer_5;
+    QPushButton *singleTrojanBrowse_2;
+    QSpacerItem *horizontalSpacer_6;
+    QPushButton *analyzeBtn_2;
+    QLabel *label_4;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_2;
@@ -123,6 +130,38 @@ public:
         tabWidget->addTab(SingleTrojanTest, QString());
         StatTest = new QWidget();
         StatTest->setObjectName(QStringLiteral("StatTest"));
+        horizontalLayoutWidget_3 = new QWidget(StatTest);
+        horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
+        horizontalLayoutWidget_3->setGeometry(QRect(10, 10, 381, 41));
+        horizontalLayout_5 = new QHBoxLayout(horizontalLayoutWidget_3);
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        horizontalSpacer_5 = new QSpacerItem(13, 13, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_5);
+
+        singleTrojanBrowse_2 = new QPushButton(horizontalLayoutWidget_3);
+        singleTrojanBrowse_2->setObjectName(QStringLiteral("singleTrojanBrowse_2"));
+        singleTrojanBrowse_2->setCursor(QCursor(Qt::PointingHandCursor));
+
+        horizontalLayout_5->addWidget(singleTrojanBrowse_2);
+
+        horizontalSpacer_6 = new QSpacerItem(17, 17, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_6);
+
+        analyzeBtn_2 = new QPushButton(horizontalLayoutWidget_3);
+        analyzeBtn_2->setObjectName(QStringLiteral("analyzeBtn_2"));
+
+        horizontalLayout_5->addWidget(analyzeBtn_2);
+
+        label_4 = new QLabel(horizontalLayoutWidget_3);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        horizontalLayout_5->addWidget(label_4);
+
         tabWidget->addTab(StatTest, QString());
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
@@ -222,7 +261,7 @@ public:
         QObject::connect(actionExit, SIGNAL(triggered()), TrojanDetectorClass, SLOT(close()));
         QObject::connect(singleTrojanBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_singleTrojanBrowse_Clicked()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(TrojanDetectorClass);
@@ -237,6 +276,9 @@ public:
         analyzeBtn->setText(QApplication::translate("TrojanDetectorClass", "Analyze", 0));
         label_2->setText(QApplication::translate("TrojanDetectorClass", "Please Select the .bin file for the trojan", 0));
         tabWidget->setTabText(tabWidget->indexOf(SingleTrojanTest), QApplication::translate("TrojanDetectorClass", "Single Trojan Test", 0));
+        singleTrojanBrowse_2->setText(QApplication::translate("TrojanDetectorClass", "Open", 0));
+        analyzeBtn_2->setText(QApplication::translate("TrojanDetectorClass", "Analyze", 0));
+        label_4->setText(QApplication::translate("TrojanDetectorClass", "Select a foldercontaining target .bin files", 0));
         tabWidget->setTabText(tabWidget->indexOf(StatTest), QApplication::translate("TrojanDetectorClass", "Automated Statistic Test", 0));
         groupBox->setTitle(QApplication::translate("TrojanDetectorClass", "Golden Chip", 0));
         label->setText(QApplication::translate("TrojanDetectorClass", "Please Select the .bin file for the golden chip", 0));

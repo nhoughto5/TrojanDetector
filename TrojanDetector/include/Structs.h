@@ -7,12 +7,14 @@
 struct Coordinate {
 	int X;
 	int Y;
+	Coordinate() {}
 	Coordinate(int x, int y) : X(x), Y(y) {}
 };
 struct LUT {
 	int offset;
 	std::string hexCode;
 	bool modifiedByTrojan;
+	Coordinate xyCoordinate;
 };
 struct libraryEntry {
 	int id;
@@ -31,6 +33,4 @@ struct libraryEntry {
 
 	}
 };
-
-
 #endif

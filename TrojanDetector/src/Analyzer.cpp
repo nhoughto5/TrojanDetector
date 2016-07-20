@@ -10,8 +10,7 @@ Analyzer::~Analyzer()
 }
 
 
-bool Analyzer::analyzeSingle(Device Golden, Device Target, const std::vector<libraryEntry>* library) {
-	int wordSize = 4, t;
+bool Analyzer::analyzeSingle(Device& Golden, Device& Target, const std::vector<libraryEntry>* library) {
 	std::map<int, LUT>* targetMap = Target.getLutMap();
 	std::map<int, LUT>* goldenMap = Golden.getLutMap();
 	std::string tempTarget, tempGolden;
@@ -21,7 +20,7 @@ bool Analyzer::analyzeSingle(Device Golden, Device Target, const std::vector<lib
 
 		//Hex codes are not equal
 		if (tempTarget.compare(tempGolden) != 0) {
-			targetMap->find(it->offSet)->second.modifiedByTrojan = true;
+			Target.setLUTContainsTrojanBool(it->offSet, true);
 			Target.setContainsTrojan(true);
 		}
 		tempTarget.clear();

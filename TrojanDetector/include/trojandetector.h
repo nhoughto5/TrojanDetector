@@ -29,6 +29,7 @@ private slots:
 	void on_singleTrojanBrowse_Clicked();
 	void on_libraryFileBrowse_Clicked();
 	void on_analyzeBtn_Clicked();
+	void on_multipleTargetBrowse_Clicked();
 };
 
 #endif // TROJANDETECTOR_H
