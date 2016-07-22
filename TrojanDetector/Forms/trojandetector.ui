@@ -147,7 +147,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="analyzeBtn_2">
+        <widget class="QPushButton" name="analyzeStatBtn">
          <property name="text">
           <string>Analyze</string>
          </property>
@@ -433,6 +433,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>analyzeStatBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TrojanDetectorClass</receiver>
+   <slot>on_analyzeStatBtn_Clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>182</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>228</x>
+     <y>-10</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_goldenFileBrowse_Clicked()</slot>
@@ -440,5 +456,6 @@
   <slot>on_libraryFileBrowse_Clicked()</slot>
   <slot>on_analyzeBtn_Clicked()</slot>
   <slot>on_multipleTargetBrowse_Clicked()</slot>
+  <slot>on_analyzeStatBtn_Clicked()</slot>
  </slots>
 </ui>

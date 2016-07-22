@@ -6,6 +6,13 @@ Device::Device() : containstrojan(false)
 {
 }
 
+Device::Device(std::map<int, LUT> lutMap_, const std::vector<libraryEntry>* Library_, bool containstrojan_):
+	lutMap(lutMap_),
+	Library(Library_),
+	containstrojan(containstrojan_)
+{
+
+}
 
 Device::~Device()
 {
@@ -47,4 +54,9 @@ std::vector<LUT> Device::getInfectedList() {
 
 void Device::setLUTContainsTrojanBool(int offset, bool value) {
 	lutMap.find(offset)->second.modifiedByTrojan = value;
+}
+
+void Device::clear() {
+	lutMap.clear();
+	containstrojan = false;
 }

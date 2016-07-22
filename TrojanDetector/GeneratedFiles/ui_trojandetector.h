@@ -51,9 +51,10 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QPushButton *multipleTargetBrowse;
     QSpacerItem *horizontalSpacer_6;
-    QPushButton *analyzeBtn_2;
+    QPushButton *analyzeStatBtn;
     QLabel *label_4;
     QTextBrowser *binFileViewer;
+    QGroupBox *groupBox_2;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_2;
@@ -148,10 +149,10 @@ public:
 
         horizontalLayout_5->addItem(horizontalSpacer_6);
 
-        analyzeBtn_2 = new QPushButton(horizontalLayoutWidget_3);
-        analyzeBtn_2->setObjectName(QStringLiteral("analyzeBtn_2"));
+        analyzeStatBtn = new QPushButton(horizontalLayoutWidget_3);
+        analyzeStatBtn->setObjectName(QStringLiteral("analyzeStatBtn"));
 
-        horizontalLayout_5->addWidget(analyzeBtn_2);
+        horizontalLayout_5->addWidget(analyzeStatBtn);
 
         label_4 = new QLabel(horizontalLayoutWidget_3);
         label_4->setObjectName(QStringLiteral("label_4"));
@@ -161,6 +162,9 @@ public:
         binFileViewer = new QTextBrowser(StatTest);
         binFileViewer->setObjectName(QStringLiteral("binFileViewer"));
         binFileViewer->setGeometry(QRect(11, 40, 381, 171));
+        groupBox_2 = new QGroupBox(StatTest);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(400, 10, 291, 201));
         tabWidget->addTab(StatTest, QString());
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
@@ -260,6 +264,7 @@ public:
         QObject::connect(actionExit, SIGNAL(triggered()), TrojanDetectorClass, SLOT(close()));
         QObject::connect(singleTrojanBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_singleTrojanBrowse_Clicked()));
         QObject::connect(multipleTargetBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_multipleTargetBrowse_Clicked()));
+        QObject::connect(analyzeStatBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_analyzeStatBtn_Clicked()));
 
         tabWidget->setCurrentIndex(1);
 
@@ -277,8 +282,9 @@ public:
         label_2->setText(QApplication::translate("TrojanDetectorClass", "Please Select the .bin file for the trojan", 0));
         tabWidget->setTabText(tabWidget->indexOf(SingleTrojanTest), QApplication::translate("TrojanDetectorClass", "Single Trojan Test", 0));
         multipleTargetBrowse->setText(QApplication::translate("TrojanDetectorClass", "Open", 0));
-        analyzeBtn_2->setText(QApplication::translate("TrojanDetectorClass", "Analyze", 0));
+        analyzeStatBtn->setText(QApplication::translate("TrojanDetectorClass", "Analyze", 0));
         label_4->setText(QApplication::translate("TrojanDetectorClass", "Select a foldercontaining target .bin files", 0));
+        groupBox_2->setTitle(QApplication::translate("TrojanDetectorClass", "Statistics", 0));
         tabWidget->setTabText(tabWidget->indexOf(StatTest), QApplication::translate("TrojanDetectorClass", "Automated Statistic Test", 0));
         groupBox->setTitle(QApplication::translate("TrojanDetectorClass", "Golden Chip", 0));
         label->setText(QApplication::translate("TrojanDetectorClass", "Please Select the .bin file for the golden chip", 0));

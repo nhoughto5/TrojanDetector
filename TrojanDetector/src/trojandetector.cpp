@@ -53,6 +53,44 @@ void TrojanDetector::on_libraryFileBrowse_Clicked() {
 	ui.singleTrojanResponse->setText(QString::fromStdString("Sucesfully Read Library File"));
 }
 
+void TrojanDetector::on_multipleTargetBrowse_Clicked() {
+	dir.clear();
+	dir = QFileDialog::getExistingDirectory(
+		this,
+		tr("Target Files"),
+		"C://",
+		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	QStringList nameFilter("*.bin");
+	QDir directory(dir);
+	statFileNames = directory.entryList(nameFilter);
+	for (int i = 0; i < statFileNames.length(); ++i) {
+		ui.binFileViewer->append(QString::fromStdString(std::to_string(i + 1)) + ".)  " + statFileNames.at(i));
+	}
+}
+
+void TrojanDetector::on_analyzeStatBtn_Clicked() {
+	int numFiles = statFileNames.size();
+	goldenDevice.loadDevice(goldenBitReader.getHexByteValues(), deviceLib.getLibrary());
+	ui.binFileViewer->clear();
+	for (QStringList::ConstIterator it = statFileNames.begin(); it != statFileNames.end(); ++it) {
+		targetBitReader.clear();
+		targetDevice.clear();
+		targetBitReader.readBitFile(dir.toStdString() + "/" + it->toLocal8Bit().constData());
+		targetDevice.loadDevice(targetBitReader.getHexByteValues(), deviceLib.getLibrary());
+		targetDevice.setContainsTrojan(Analyzer::analyzeSingle(goldenDevice, targetDevice, deviceLib.getLibrary()));
+		statisticTestDevices.push_back(targetDevice);
+
+		//Contains Trojan, red font
+		if (targetDevice.getContainsTrojan()) {
+			ui.binFileViewer->append("<p><font color=\"red\">"+ *it + "</font></p>");
+
+		}
+		else {
+			ui.binFileViewer->append("<p><font color=\"green\">" + *it + "</font></p>");
+		}
+	}
+}
+
 void TrojanDetector::on_analyzeBtn_Clicked() {
 	//One of the necessary files has been loaded
 	if (libraryFileLoaded && goldenChipFileAnalyzed) {
@@ -95,16 +133,4 @@ void TrojanDetector::on_analyzeBtn_Clicked() {
 	else {
 		ui.singleTrojanResponse->setText("Error: Please load a library file or add a golden chip bin file for analysis");
 	}
-}
-
-void TrojanDetector::on_multipleTargetBrowse_Clicked() {
-	QString dir = QFileDialog::getExistingDirectory(
-		this, 
-		tr("Target Files"), 
-		"C://", 
-		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-	QStringList nameFilter("*.bin");
-	QDir directory(dir);
-	QStringList binFiles = directory.entryList(nameFilter);
-	for (int i = 0; i < binFiles.length(); ++i) ui.binFileViewer->append(QString::fromStdString(std::to_string(i+1)) + ".)  " + binFiles.at(i));
 }

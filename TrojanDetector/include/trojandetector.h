@@ -22,7 +22,10 @@ private:
 	Library deviceLib;
 	bool libraryFileLoaded, goldenChipFileAnalyzed, targetFileLoaded;
 	BitStreamReader goldenBitReader, targetBitReader;
+	std::vector<Device> statisticTestDevices;
 	Device goldenDevice, targetDevice;
+	QStringList statFileNames;
+	QString dir;
 private slots:
 	
 	void on_goldenFileBrowse_Clicked();
@@ -30,6 +33,7 @@ private slots:
 	void on_libraryFileBrowse_Clicked();
 	void on_analyzeBtn_Clicked();
 	void on_multipleTargetBrowse_Clicked();
+	void on_analyzeStatBtn_Clicked();
 };
 
 #endif // TROJANDETECTOR_H
