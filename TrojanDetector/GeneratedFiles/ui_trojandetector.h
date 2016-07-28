@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -55,6 +56,14 @@ public:
     QLabel *label_4;
     QTextBrowser *binFileViewer;
     QGroupBox *groupBox_2;
+    QWidget *tab;
+    QTextBrowser *textBrowser;
+    QComboBox *deviceModelComboBox;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_5;
+    QSpacerItem *horizontalSpacer_5;
+    QPushButton *xilinxDirectoryBrowse;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_2;
@@ -166,6 +175,38 @@ public:
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(400, 10, 291, 201));
         tabWidget->addTab(StatTest, QString());
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        textBrowser = new QTextBrowser(tab);
+        textBrowser->setObjectName(QStringLiteral("textBrowser"));
+        textBrowser->setGeometry(QRect(0, 51, 691, 161));
+        deviceModelComboBox = new QComboBox(tab);
+        deviceModelComboBox->setObjectName(QStringLiteral("deviceModelComboBox"));
+        deviceModelComboBox->setGeometry(QRect(0, 10, 171, 22));
+        widget = new QWidget(tab);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(400, 10, 283, 25));
+        horizontalLayout_3 = new QHBoxLayout(widget);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        label_5 = new QLabel(widget);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        horizontalLayout_3->addWidget(label_5);
+
+        horizontalSpacer_5 = new QSpacerItem(6, 13, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_5);
+
+        xilinxDirectoryBrowse = new QPushButton(widget);
+        xilinxDirectoryBrowse->setObjectName(QStringLiteral("xilinxDirectoryBrowse"));
+        xilinxDirectoryBrowse->setCursor(QCursor(Qt::PointingHandCursor));
+
+        horizontalLayout_3->addWidget(xilinxDirectoryBrowse);
+
+        tabWidget->addTab(tab, QString());
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(10, 10, 689, 60));
@@ -265,8 +306,9 @@ public:
         QObject::connect(singleTrojanBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_singleTrojanBrowse_Clicked()));
         QObject::connect(multipleTargetBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_multipleTargetBrowse_Clicked()));
         QObject::connect(analyzeStatBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_analyzeStatBtn_Clicked()));
+        QObject::connect(xilinxDirectoryBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_xilinxDirectoryBrowse_Clicked()));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(TrojanDetectorClass);
@@ -286,6 +328,9 @@ public:
         label_4->setText(QApplication::translate("TrojanDetectorClass", "Select a foldercontaining target .bin files", 0));
         groupBox_2->setTitle(QApplication::translate("TrojanDetectorClass", "Statistics", 0));
         tabWidget->setTabText(tabWidget->indexOf(StatTest), QApplication::translate("TrojanDetectorClass", "Automated Statistic Test", 0));
+        label_5->setText(QApplication::translate("TrojanDetectorClass", "Choose Directory Containing Xilinx Files", 0));
+        xilinxDirectoryBrowse->setText(QApplication::translate("TrojanDetectorClass", "Open", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("TrojanDetectorClass", "Bitstream Parser", 0));
         groupBox->setTitle(QApplication::translate("TrojanDetectorClass", "Golden Chip", 0));
         label->setText(QApplication::translate("TrojanDetectorClass", "Please Select the .bin file for the golden chip", 0));
         goldenFileBrowse->setText(QApplication::translate("TrojanDetectorClass", "Open", 0));

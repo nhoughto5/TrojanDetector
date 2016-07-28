@@ -8,6 +8,7 @@
 #include "BitStreamReader.h"
 #include "Device.h"
 #include "Analyzer.h"
+#include "BitStreamParser.h"
 //Test Change
 class TrojanDetector : public QMainWindow
 {
@@ -26,6 +27,7 @@ private:
 	Device goldenDevice, targetDevice;
 	QStringList statFileNames;
 	QString dir;
+	BitStreamParser parser;
 private slots:
 	
 	void on_goldenFileBrowse_Clicked();
@@ -34,6 +36,8 @@ private slots:
 	void on_analyzeBtn_Clicked();
 	void on_multipleTargetBrowse_Clicked();
 	void on_analyzeStatBtn_Clicked();
+	void on_xilinxDirectoryBrowse_Clicked();
+	void on_parseBtn_Clicked();
 };
 
 #endif // TROJANDETECTOR_H

@@ -27,7 +27,7 @@
      <bool>true</bool>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="SingleTrojanTest">
      <attribute name="title">
@@ -184,6 +184,73 @@
       <property name="title">
        <string>Statistics</string>
       </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Bitstream Parser</string>
+     </attribute>
+     <widget class="QTextBrowser" name="textBrowser">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>51</y>
+        <width>691</width>
+        <height>161</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="deviceModelComboBox">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>10</y>
+        <width>283</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Choose Directory Containing Xilinx Files</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>6</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="xilinxDirectoryBrowse">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Open</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
@@ -449,6 +516,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>xilinxDirectoryBrowse</sender>
+   <signal>clicked()</signal>
+   <receiver>TrojanDetectorClass</receiver>
+   <slot>on_xilinxDirectoryBrowse_Clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>655</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>552</x>
+     <y>-8</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_goldenFileBrowse_Clicked()</slot>
@@ -457,5 +540,6 @@
   <slot>on_analyzeBtn_Clicked()</slot>
   <slot>on_multipleTargetBrowse_Clicked()</slot>
   <slot>on_analyzeStatBtn_Clicked()</slot>
+  <slot>on_xilinxDirectoryBrowse_Clicked()</slot>
  </slots>
 </ui>

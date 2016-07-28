@@ -7,6 +7,7 @@ TrojanDetector::TrojanDetector(QWidget *parent)	:
 	targetFileLoaded(false)
 {
 	ui.setupUi(this);
+	parser.setPath(NULL);
 }
 
 TrojanDetector::~TrojanDetector()
@@ -133,4 +134,14 @@ void TrojanDetector::on_analyzeBtn_Clicked() {
 	else {
 		ui.singleTrojanResponse->setText("Error: Please load a library file or add a golden chip bin file for analysis");
 	}
+}
+
+void TrojanDetector::on_xilinxDirectoryBrowse_Clicked() {
+	dir.clear();
+	dir = QFileDialog::getExistingDirectory(
+		this,
+		tr("Target Files"),
+		"C://",
+		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	parser.setPath(dir.toLocal8Bit().constData());
 }

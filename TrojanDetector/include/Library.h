@@ -17,6 +17,7 @@ public:
 
 	void readLibrary(std::string fileName);
 	const std::vector<libraryEntry>* getLibrary();
+	void addEntry(DeviceType deviceType, lutOffsetResponse offset, Coordinate xyCoordinate, std::string location = "NA", DeviceConfiguration deviceConfig = NONE);
 private:
 	std::vector<libraryEntry> libEntries;
 
