@@ -15,6 +15,8 @@ public:
 	void setDevice_Xa3s100E();
 	std::vector<Coordinate> getLUTCoordinates();
 	int getMaxX(), getMaxY();
+	std::vector<std::string> getDefinedDevices();
+	
 private:
 	std::vector<Coordinate> LUTCoordinates;
 	std::vector<Coordinate> missingAddresses;

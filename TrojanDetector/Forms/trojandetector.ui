@@ -190,31 +190,37 @@
      <attribute name="title">
       <string>Bitstream Parser</string>
      </attribute>
-     <widget class="QTextBrowser" name="textBrowser">
+     <widget class="QTextBrowser" name="bitstreamParseTextBox">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>51</y>
+        <y>71</y>
         <width>691</width>
-        <height>161</height>
+        <height>141</height>
        </rect>
       </property>
      </widget>
-     <widget class="QComboBox" name="deviceModelComboBox">
+     <widget class="QPushButton" name="parseBtn">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>10</y>
-        <width>171</width>
-        <height>22</height>
+        <x>610</x>
+        <y>40</y>
+        <width>75</width>
+        <height>23</height>
        </rect>
       </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>Parse</string>
+      </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>400</x>
-        <y>10</y>
+        <x>401</x>
+        <y>11</y>
         <width>283</width>
         <height>25</height>
        </rect>
@@ -247,6 +253,50 @@
          </property>
          <property name="text">
           <string>Open</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>301</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QComboBox" name="deviceModelComboBox"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Select Device Model</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>301</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QComboBox" name="parseTargetComboBox"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Select Parse Target</string>
          </property>
         </widget>
        </item>
@@ -532,6 +582,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>parseBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TrojanDetectorClass</receiver>
+   <slot>on_parseBtn_Clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>673</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>584</x>
+     <y>-2</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_goldenFileBrowse_Clicked()</slot>
@@ -541,5 +607,6 @@
   <slot>on_multipleTargetBrowse_Clicked()</slot>
   <slot>on_analyzeStatBtn_Clicked()</slot>
   <slot>on_xilinxDirectoryBrowse_Clicked()</slot>
+  <slot>on_parseBtn_Clicked()</slot>
  </slots>
 </ui>

@@ -11,6 +11,13 @@ DeviceModel::~DeviceModel()
 {
 }
 
+std::vector<std::string> DeviceModel::getDefinedDevices() {
+	std::vector<std::string> listOfDefinedDevices;
+	listOfDefinedDevices.push_back("Spartan 3E 100");
+
+	return listOfDefinedDevices;
+}
+
 bool DeviceModel::containsCoordinate(int x_, int y_) {
 	for (std::vector<Coordinate>::const_iterator it = missingAddresses.begin(); it != missingAddresses.end(); ++it) {
 		if ((it->X == x_) && (it->Y == y_)) {

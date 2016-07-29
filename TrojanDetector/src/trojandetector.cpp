@@ -7,14 +7,25 @@ TrojanDetector::TrojanDetector(QWidget *parent)	:
 	targetFileLoaded(false)
 {
 	ui.setupUi(this);
-	//parser.setPath(NULL);
+	definedModels = Model.getDefinedDevices();
+	for (std::vector<std::string>::const_iterator it = definedModels.begin(); it != definedModels.end(); ++it) {
+		ui.deviceModelComboBox->addItem(QString::fromStdString(*it));
+	}
+	definedOperations = parser.getDefinedParseOperations();
+	for (std::vector<std::string>::const_iterator it = definedOperations.begin(); it != definedOperations.end(); ++it) {
+		ui.parseTargetComboBox->addItem(QString::fromStdString(*it));
+	}
+
+	QObject::connect(&parser, &BitStreamParser::sendUpdatePercentSignal, this, &TrojanDetector::updateMessage);
 }
 
 TrojanDetector::~TrojanDetector()
 {
 
 }
-
+void TrojanDetector::updateMessage(double percent) {
+	ui.bitstreamParseTextBox->append(QString::fromStdString(std::to_string(percent)));
+}
 void TrojanDetector::on_goldenFileBrowse_Clicked() {
 	goldenChipFileAnalyzed = true;
 	QString fileName = QFileDialog::getOpenFileName(
@@ -143,8 +154,9 @@ void TrojanDetector::on_xilinxDirectoryBrowse_Clicked() {
 		tr("Target Files"),
 		"C://",
 		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	dir = dir + "/";
 	parser.setPath(dir.toLocal8Bit().constData());
 }
 void TrojanDetector::on_parseBtn_Clicked() {
-
+	parser.startParse(ui.deviceModelComboBox->currentText().toLocal8Bit().constData(), ui.parseTargetComboBox->currentText().toLocal8Bit().constData());
 }

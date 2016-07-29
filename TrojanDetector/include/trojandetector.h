@@ -9,6 +9,7 @@
 #include "Device.h"
 #include "Analyzer.h"
 #include "BitStreamParser.h"
+#include "DeviceModel.h"
 //Test Change
 class TrojanDetector : public QMainWindow
 {
@@ -17,19 +18,20 @@ class TrojanDetector : public QMainWindow
 public:
 	TrojanDetector(QWidget *parent = 0);
 	~TrojanDetector();
-	/*void on_goldenFileBrowse_Clicked();*/
 private:
 	Ui::TrojanDetectorClass ui;
 	Library deviceLib;
 	bool libraryFileLoaded, goldenChipFileAnalyzed, targetFileLoaded;
 	BitStreamReader goldenBitReader, targetBitReader;
 	std::vector<Device> statisticTestDevices;
+	std::vector<std::string> definedModels, definedOperations;
 	Device goldenDevice, targetDevice;
 	QStringList statFileNames;
 	QString dir;
 	BitStreamParser parser;
+	DeviceModel Model;
 private slots:
-	
+	void updateMessage(double percent);
 	void on_goldenFileBrowse_Clicked();
 	void on_singleTrojanBrowse_Clicked();
 	void on_libraryFileBrowse_Clicked();

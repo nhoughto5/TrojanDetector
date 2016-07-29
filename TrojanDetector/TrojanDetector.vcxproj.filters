@@ -74,6 +74,12 @@
     <ClCompile Include="src\BitStreamParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BitStreamParser.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BitStreamParser.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\trojandetector.h">
@@ -84,6 +90,9 @@
     </CustomBuild>
     <CustomBuild Include="Forms\trojandetector.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\BitStreamParser.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +127,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\CoutRedirect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\BitStreamParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

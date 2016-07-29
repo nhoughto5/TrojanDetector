@@ -1,6 +1,7 @@
 #ifndef BITSTREAM_PARSER
 #define BITSTREAM_PARSER
 #pragma once
+#include <QtWidgets/QMainWindow>
 #include <string>
 #include <vector>
 #include <set>
@@ -18,15 +19,22 @@
 #include "Synthesizer.h"
 #include "BitStreamAnalyzer.h"
 
-class BitStreamParser
+class BitStreamParser : public QObject
 {
+	Q_OBJECT
 public:
 	BitStreamParser();
 	~BitStreamParser();
 
-	void parseBitstream(std::string model);
+	void startParse(std::string model, std::string operation);
 	void setPath(std::string path);
+	std::vector<std::string> getDefinedParseOperations();
+
+signals:
+	void sendUpdatePercentSignal(double percent);
+
 private:
+	void parseLUT();
 	void makeDirectories();
 	void makeInitFiles();
 	void locateLUTs();
@@ -40,10 +48,12 @@ private:
 	lutOffsetResponse readBitFile();
 
 	std::set<std::string> initialFileList;
+	std::vector<std::string> definedParseOperations;
 	std::string path;
 	std::wstring wPath;
 	Library lib;
 	Synthesizer synthesizer;
 	BitStreamAnalyzer bitAnalyzer;
+	DeviceModel Model;
 };
 #endif // !BITSTREAM_PARSER

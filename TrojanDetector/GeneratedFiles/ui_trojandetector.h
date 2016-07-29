@@ -57,14 +57,22 @@ public:
     QTextBrowser *binFileViewer;
     QGroupBox *groupBox_2;
     QWidget *tab;
-    QTextBrowser *textBrowser;
-    QComboBox *deviceModelComboBox;
-    QWidget *widget;
+    QTextBrowser *bitstreamParseTextBox;
+    QPushButton *parseBtn;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_5;
     QSpacerItem *horizontalSpacer_5;
     QPushButton *xilinxDirectoryBrowse;
-    QWidget *layoutWidget;
+    QWidget *layoutWidget1;
+    QHBoxLayout *horizontalLayout_9;
+    QComboBox *deviceModelComboBox;
+    QLabel *label_7;
+    QWidget *layoutWidget2;
+    QHBoxLayout *horizontalLayout_10;
+    QComboBox *parseTargetComboBox;
+    QLabel *label_6;
+    QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *groupBox;
@@ -177,21 +185,22 @@ public:
         tabWidget->addTab(StatTest, QString());
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        textBrowser = new QTextBrowser(tab);
-        textBrowser->setObjectName(QStringLiteral("textBrowser"));
-        textBrowser->setGeometry(QRect(0, 51, 691, 161));
-        deviceModelComboBox = new QComboBox(tab);
-        deviceModelComboBox->setObjectName(QStringLiteral("deviceModelComboBox"));
-        deviceModelComboBox->setGeometry(QRect(0, 10, 171, 22));
-        widget = new QWidget(tab);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(400, 10, 283, 25));
-        horizontalLayout_3 = new QHBoxLayout(widget);
+        bitstreamParseTextBox = new QTextBrowser(tab);
+        bitstreamParseTextBox->setObjectName(QStringLiteral("bitstreamParseTextBox"));
+        bitstreamParseTextBox->setGeometry(QRect(0, 71, 691, 141));
+        parseBtn = new QPushButton(tab);
+        parseBtn->setObjectName(QStringLiteral("parseBtn"));
+        parseBtn->setGeometry(QRect(610, 40, 75, 23));
+        parseBtn->setCursor(QCursor(Qt::PointingHandCursor));
+        layoutWidget = new QWidget(tab);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(401, 11, 283, 25));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget);
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         horizontalLayout_3->addWidget(label_5);
@@ -200,17 +209,53 @@ public:
 
         horizontalLayout_3->addItem(horizontalSpacer_5);
 
-        xilinxDirectoryBrowse = new QPushButton(widget);
+        xilinxDirectoryBrowse = new QPushButton(layoutWidget);
         xilinxDirectoryBrowse->setObjectName(QStringLiteral("xilinxDirectoryBrowse"));
         xilinxDirectoryBrowse->setCursor(QCursor(Qt::PointingHandCursor));
 
         horizontalLayout_3->addWidget(xilinxDirectoryBrowse);
 
+        layoutWidget1 = new QWidget(tab);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 10, 301, 22));
+        horizontalLayout_9 = new QHBoxLayout(layoutWidget1);
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
+        deviceModelComboBox = new QComboBox(layoutWidget1);
+        deviceModelComboBox->setObjectName(QStringLiteral("deviceModelComboBox"));
+
+        horizontalLayout_9->addWidget(deviceModelComboBox);
+
+        label_7 = new QLabel(layoutWidget1);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        horizontalLayout_9->addWidget(label_7);
+
+        layoutWidget2 = new QWidget(tab);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(10, 40, 301, 22));
+        horizontalLayout_10 = new QHBoxLayout(layoutWidget2);
+        horizontalLayout_10->setSpacing(6);
+        horizontalLayout_10->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
+        horizontalLayout_10->setContentsMargins(0, 0, 0, 0);
+        parseTargetComboBox = new QComboBox(layoutWidget2);
+        parseTargetComboBox->setObjectName(QStringLiteral("parseTargetComboBox"));
+
+        horizontalLayout_10->addWidget(parseTargetComboBox);
+
+        label_6 = new QLabel(layoutWidget2);
+        label_6->setObjectName(QStringLiteral("label_6"));
+
+        horizontalLayout_10->addWidget(label_6);
+
         tabWidget->addTab(tab, QString());
-        layoutWidget = new QWidget(centralWidget);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 10, 689, 60));
-        horizontalLayout_8 = new QHBoxLayout(layoutWidget);
+        layoutWidget3 = new QWidget(centralWidget);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(10, 10, 689, 60));
+        horizontalLayout_8 = new QHBoxLayout(layoutWidget3);
         horizontalLayout_8->setSpacing(6);
         horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
@@ -218,7 +263,7 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        groupBox = new QGroupBox(layoutWidget);
+        groupBox = new QGroupBox(layoutWidget3);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         horizontalLayout = new QHBoxLayout(groupBox);
         horizontalLayout->setSpacing(6);
@@ -248,7 +293,7 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        groupBox_3 = new QGroupBox(layoutWidget);
+        groupBox_3 = new QGroupBox(layoutWidget3);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         horizontalLayout_7 = new QHBoxLayout(groupBox_3);
         horizontalLayout_7->setSpacing(6);
@@ -307,6 +352,7 @@ public:
         QObject::connect(multipleTargetBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_multipleTargetBrowse_Clicked()));
         QObject::connect(analyzeStatBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_analyzeStatBtn_Clicked()));
         QObject::connect(xilinxDirectoryBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_xilinxDirectoryBrowse_Clicked()));
+        QObject::connect(parseBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_parseBtn_Clicked()));
 
         tabWidget->setCurrentIndex(2);
 
@@ -328,8 +374,11 @@ public:
         label_4->setText(QApplication::translate("TrojanDetectorClass", "Select a foldercontaining target .bin files", 0));
         groupBox_2->setTitle(QApplication::translate("TrojanDetectorClass", "Statistics", 0));
         tabWidget->setTabText(tabWidget->indexOf(StatTest), QApplication::translate("TrojanDetectorClass", "Automated Statistic Test", 0));
+        parseBtn->setText(QApplication::translate("TrojanDetectorClass", "Parse", 0));
         label_5->setText(QApplication::translate("TrojanDetectorClass", "Choose Directory Containing Xilinx Files", 0));
         xilinxDirectoryBrowse->setText(QApplication::translate("TrojanDetectorClass", "Open", 0));
+        label_7->setText(QApplication::translate("TrojanDetectorClass", "Select Device Model", 0));
+        label_6->setText(QApplication::translate("TrojanDetectorClass", "Select Parse Target", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("TrojanDetectorClass", "Bitstream Parser", 0));
         groupBox->setTitle(QApplication::translate("TrojanDetectorClass", "Golden Chip", 0));
         label->setText(QApplication::translate("TrojanDetectorClass", "Please Select the .bin file for the golden chip", 0));
