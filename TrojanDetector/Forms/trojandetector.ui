@@ -302,6 +302,13 @@
        </item>
       </layout>
      </widget>
+     <zorder>bitstreamParseTextBox</zorder>
+     <zorder>parseBtn</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>parseTargetComboBox</zorder>
+     <zorder>label_6</zorder>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -567,22 +574,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>xilinxDirectoryBrowse</sender>
-   <signal>clicked()</signal>
-   <receiver>TrojanDetectorClass</receiver>
-   <slot>on_xilinxDirectoryBrowse_Clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>655</x>
-     <y>186</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>552</x>
-     <y>-8</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>parseBtn</sender>
    <signal>clicked()</signal>
    <receiver>TrojanDetectorClass</receiver>
@@ -595,6 +586,22 @@
     <hint type="destinationlabel">
      <x>584</x>
      <y>-2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>xilinxDirectoryBrowse</sender>
+   <signal>clicked()</signal>
+   <receiver>TrojanDetectorClass</receiver>
+   <slot>on_xilinxDirectoryBrowse_Clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>655</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>552</x>
+     <y>-8</y>
     </hint>
    </hints>
   </connection>

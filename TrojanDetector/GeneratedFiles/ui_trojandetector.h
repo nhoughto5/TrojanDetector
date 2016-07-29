@@ -252,6 +252,13 @@ public:
         horizontalLayout_10->addWidget(label_6);
 
         tabWidget->addTab(tab, QString());
+        bitstreamParseTextBox->raise();
+        parseBtn->raise();
+        layoutWidget->raise();
+        layoutWidget->raise();
+        layoutWidget->raise();
+        parseTargetComboBox->raise();
+        label_6->raise();
         layoutWidget3 = new QWidget(centralWidget);
         layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
         layoutWidget3->setGeometry(QRect(10, 10, 689, 60));
@@ -351,8 +358,8 @@ public:
         QObject::connect(singleTrojanBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_singleTrojanBrowse_Clicked()));
         QObject::connect(multipleTargetBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_multipleTargetBrowse_Clicked()));
         QObject::connect(analyzeStatBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_analyzeStatBtn_Clicked()));
-        QObject::connect(xilinxDirectoryBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_xilinxDirectoryBrowse_Clicked()));
         QObject::connect(parseBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_parseBtn_Clicked()));
+        QObject::connect(xilinxDirectoryBrowse, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_xilinxDirectoryBrowse_Clicked()));
 
         tabWidget->setCurrentIndex(2);
 

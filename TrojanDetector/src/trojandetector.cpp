@@ -24,7 +24,9 @@ TrojanDetector::~TrojanDetector()
 
 }
 void TrojanDetector::updateMessage(double percent) {
-	ui.bitstreamParseTextBox->append(QString::fromStdString(std::to_string(percent)));
+	//ui.bitstreamParseTextBox->setText(QString::fromStdString(std::to_string(percent) + "%"));
+	ui.bitstreamParseTextBox->setText("Hello");
+	std::cout << "Percent: " << percent << "\n";
 }
 void TrojanDetector::on_goldenFileBrowse_Clicked() {
 	goldenChipFileAnalyzed = true;
