@@ -250,54 +250,17 @@ void BitStreamParser::cleanUP() {
 
 void BitStreamParser::makeInitFiles() {
 	std::ofstream schematicFile;
+	std::fstream xml;
+	xml.open("Extra/schematicTemplate.xml");
 	schematicFile.open(path + "item.sch");
-	schematicFile << "< ? xml version = \"1.0\" encoding = \"UTF - 8\" ? > \n";
-	schematicFile <<"<drawing version = \"7\">																						 \n";
-	schematicFile <<"<attr value = \"aspartan3e\" name = \"DeviceFamilyName\">														 \n";
-	schematicFile <<"<trait delete = \"all:0\" / >																					 \n";
-	schematicFile <<"<trait editname = \"all:0\" / >																				 \n";
-	schematicFile <<"<trait edittrait = \"all:0\" / >																				 \n";
-	schematicFile <<"< / attr>																										 \n";
-	schematicFile <<"<netlist>																										 \n";
-	schematicFile <<"<signal name = \"XLXN_1\" / >																					 \n";
-	schematicFile <<"<signal name = \"XLXN_2\" / >																					 \n";
-	schematicFile <<"<signal name = \"XLXN_3\" / >																					 \n";
-	schematicFile <<"<port polarity = \"Input\" name = \"XLXN_1\" / >																 \n";
-	schematicFile <<"<port polarity = \"Input\" name = \"XLXN_2\" / >																 \n";
-	schematicFile <<"<port polarity = \"Output\" name = \"XLXN_3\" / >																 \n";
-	schematicFile <<"<blockdef name = \"and2\">																						 \n";
-	schematicFile <<"<timestamp>2000 - 1 - 1T10:10 : 10< / timestamp>																 \n";
-	schematicFile <<"<line x2 = \"64\" y1 = \"-64\" y2 = \"-64\" x1 = \"0\" / >														 \n";
-	schematicFile <<"<line x2 = \"64\" y1 = \"-128\" y2 = \"-128\" x1 = \"0\" / >													 \n";
-	schematicFile <<"<line x2 = \"192\" y1 = \"-96\" y2 = \"-96\" x1 = \"256\" / >													 \n";
-	schematicFile <<"<arc ex = \"144\" ey = \"-144\" sx = \"144\" sy = \"-48\" r = \"48\" cx = \"144\" cy = \"-96\" / >				 \n";
-	schematicFile <<"<line x2 = \"64\" y1 = \"-48\" y2 = \"-48\" x1 = \"144\" / >													 \n";
-	schematicFile <<"<line x2 = \"144\" y1 = \"-144\" y2 = \"-144\" x1 = \"64\" / >													 \n";
-	schematicFile <<"<line x2 = \"64\" y1 = \"-48\" y2 = \"-144\" x1 = \"64\" / >													 \n";
-	schematicFile <<"< / blockdef>																									 \n";
-	schematicFile <<"<block symbolname = \"and2\" name = \"XLXI_1\">																 \n";
-	schematicFile <<"<blockpin signalname = \"XLXN_2\" name = \"I0\" / >															 \n";
-	schematicFile <<"<blockpin signalname = \"XLXN_1\" name = \"I1\" / >															 \n";
-	schematicFile <<"<blockpin signalname = \"XLXN_3\" name = \"O\" / >																 \n";
-	schematicFile <<"< / block>																										 \n";
-	schematicFile <<"< / netlist>																									 \n";
-	schematicFile <<"<sheet sheetnum = \"1\" width = \"3520\" height = \"2720\">													 \n";
-	schematicFile <<"<instance x = \"1536\" y = \"1200\" name = \"XLXI_1\" orien = \"R0\" / >										 \n";
-	schematicFile <<"<branch name = \"XLXN_1\">																						 \n";
-	schematicFile <<"<wire x2 = \"1536\" y1 = \"1072\" y2 = \"1072\" x1 = \"1504\" / >												 \n";
-	schematicFile <<"< / branch>																									 \n";
-	schematicFile <<"<iomarker fontsize = \"28\" x = \"1504\" y = \"1072\" name = \"XLXN_1\" orien = \"R180\" / >					 \n";
-	schematicFile <<"<branch name = \"XLXN_2\">																						 \n";
-	schematicFile <<"<wire x2 = \"1536\" y1 = \"1136\" y2 = \"1136\" x1 = \"1504\" / >												 \n";
-	schematicFile <<"< / branch>																									 \n";
-	schematicFile <<"<iomarker fontsize = \"28\" x = \"1504\" y = \"1136\" name = \"XLXN_2\" orien = \"R180\" / >					 \n";
-	schematicFile <<"<branch name = \"XLXN_3\">																						 \n";
-	schematicFile <<"<wire x2 = \"1824\" y1 = \"1104\" y2 = \"1104\" x1 = \"1792\" / >												 \n";
-	schematicFile <<"< / branch>																									 \n";
-	schematicFile <<"<iomarker fontsize = \"28\" x = \"1824\" y = \"1104\" name = \"XLXN_3\" orien = \"R0\" / >						 \n";
-	schematicFile <<"< / sheet>																										 \n";
-	schematicFile << "< / drawing>";
-	schematicFile.open(path + "item.sch");
+	std::string line;
+	while (xml.good())
+	{
+		getline(xml, line);
+		schematicFile << line << "\n";
+	}
+	schematicFile.close();
+	xml.close();
 
 
 

@@ -136,4 +136,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Extra\schematicTemplate.xml" />
+  </ItemGroup>
 </Project>
