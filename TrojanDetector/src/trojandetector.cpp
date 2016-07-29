@@ -7,7 +7,7 @@ TrojanDetector::TrojanDetector(QWidget *parent)	:
 	targetFileLoaded(false)
 {
 	ui.setupUi(this);
-	parser.setPath(NULL);
+	//parser.setPath(NULL);
 }
 
 TrojanDetector::~TrojanDetector()
@@ -144,4 +144,7 @@ void TrojanDetector::on_xilinxDirectoryBrowse_Clicked() {
 		"C://",
 		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	parser.setPath(dir.toLocal8Bit().constData());
+}
+void TrojanDetector::on_parseBtn_Clicked() {
+
 }

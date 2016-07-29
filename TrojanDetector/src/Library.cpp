@@ -71,3 +71,7 @@ bool Library::is_number(const std::string& s)
 const std::vector<libraryEntry>* Library::getLibrary() {
 	return &libEntries;
 }
+
+void Library::addEntry(DeviceType deviceType, lutOffsetResponse offset, Coordinate xyCoordinate, std::string location, DeviceConfiguration deviceConfig) {
+
+}

@@ -71,7 +71,7 @@
     <ClCompile Include="src\Synthesizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BitStreamParser.cpp">
+    <ClCompile Include="src\BitStreamParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,10 +117,10 @@
     <ClInclude Include="include\Synthesizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BitStreamParser.h">
+    <ClInclude Include="include\CoutRedirect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CoutRedirect.h">
+    <ClInclude Include="include\BitStreamParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
