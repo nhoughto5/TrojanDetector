@@ -26,7 +26,7 @@ public:
 	BitStreamParser();
 	~BitStreamParser();
 
-	void startParse(std::string model, std::string operation);
+	void startParse(std::string model, std::string operation, std::string golden);
 	void setPath(std::string path);
 	std::vector<std::string> getDefinedParseOperations();
 

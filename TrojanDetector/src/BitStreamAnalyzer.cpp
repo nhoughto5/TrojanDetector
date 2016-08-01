@@ -11,8 +11,61 @@ BitStreamAnalyzer::BitStreamAnalyzer()
 BitStreamAnalyzer::~BitStreamAnalyzer()
 {
 }
+std::string BitStreamAnalyzer::hexFormat(int num) {
+	std::stringstream s;
+	s << std::hex << std::setw(8) << std::setfill('0') << num;
+	std::string s2 = s.str();
+	return s2;
+}
+void BitStreamAnalyzer::getWordList(std::string binFilePath) {
+	std::clock_t    start;
+	start = std::clock();
+	using namespace std;
+	unsigned char x;
+	std::ifstream input(binFilePath.c_str(), std::ios::binary);
+	input >> std::noskipws;
+	std::stringstream buffer;
 
+	//Read entire hex file into buffer
+	while (input >> x) {
+		buffer << std::hex << std::setw(2) << std::setfill('0') << (int)x;
+	}
+	std::string content = buffer.str();
+	int strL = content.length();
+
+	//Split file into vector of bytes
+	for (int i = 0; i < strL; i += 8) {
+		wordList.push_back(Word(i / 8, content.substr(i, 8)));
+	}
+	buffer.clear();
+	content.clear();
+
+	std::ofstream wordFile;
+	wordFile.open("BitstreamWordList.txt");
+	wordFile << "WordNumber     CommandType                          hexValue(hex)     byteOffset(int)     BitOffset(int)\n";
+	const char seperator = ' ';
+	int numWidth = 15;
+	int typLength = 37;
+	int hexLength = 18;
+	int byteLength = 20;
+	int bitLength = 20;
+	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
+		wordFile
+			<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
+			<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
+			<< std::left << std::setw(hexLength) << std::setfill(seperator)  << boost::to_upper_copy<std::string>(it->hexWord)
+			<< std::left << std::setw(byteLength) << std::setfill(seperator)  << it->wordNumber
+			<< std::left << std::setw(bitLength) << std::setfill(seperator) <<it->bitNumber << "\n";
+		
+	}
+	wordFile.close();
+	return;
+}
+std::string BitStreamAnalyzer::getPath() {
+	return path;
+}
 void BitStreamAnalyzer::readBitFile(std::string binFilePath) {
+	path = binFilePath;
 	std::clock_t    start;
 	start = std::clock();
 	using namespace std;
@@ -120,4 +173,10 @@ lutOffsetResponse BitStreamAnalyzer::getByteOffSet() {
 	ret.offset = intRet;
 	ret.hexCode = stringRet;
 	return ret;
+}
+std::vector<std::string> BitStreamAnalyzer::getHexByteValues() {
+	return hexByteValues;
+}
+void BitStreamAnalyzer::clear() {
+	hexByteValues.clear();
 }

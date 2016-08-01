@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Library.h"
 #include "ui_trojandetector.h"
-#include "BitStreamReader.h"
+#include "BitStreamAnalyzer.h"
 #include "Device.h"
 #include "Analyzer.h"
 #include "BitStreamParser.h"
@@ -22,7 +22,7 @@ private:
 	Ui::TrojanDetectorClass ui;
 	Library deviceLib;
 	bool libraryFileLoaded, goldenChipFileAnalyzed, targetFileLoaded;
-	BitStreamReader goldenBitReader, targetBitReader;
+	BitStreamAnalyzer goldenBitReader, targetBitReader;
 	std::vector<Device> statisticTestDevices;
 	std::vector<std::string> definedModels, definedOperations;
 	Device goldenDevice, targetDevice;

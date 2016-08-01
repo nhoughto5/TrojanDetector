@@ -160,5 +160,5 @@ void TrojanDetector::on_xilinxDirectoryBrowse_Clicked() {
 	parser.setPath(dir.toLocal8Bit().constData());
 }
 void TrojanDetector::on_parseBtn_Clicked() {
-	parser.startParse(ui.deviceModelComboBox->currentText().toLocal8Bit().constData(), ui.parseTargetComboBox->currentText().toLocal8Bit().constData());
+	parser.startParse(ui.deviceModelComboBox->currentText().toLocal8Bit().constData(), ui.parseTargetComboBox->currentText().toLocal8Bit().constData(), goldenBitReader.getPath());
 }

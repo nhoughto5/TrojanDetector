@@ -10,7 +10,7 @@ BitStreamParser::BitStreamParser()
 BitStreamParser::~BitStreamParser()
 {
 }
-void BitStreamParser::startParse(std::string model, std::string operation) {
+void BitStreamParser::startParse(std::string model, std::string operation, std::string goldenPath) {
 	if (model.compare("Spartan 3E 100") == 0) {
 		Model.setDevice_Xa3s100E();
 	}
@@ -27,6 +27,9 @@ void BitStreamParser::startParse(std::string model, std::string operation) {
 	}
 	else if (operation.compare("Interconnect Resources") == 0) {
 
+	}
+	else if (operation.compare("Word Map") == 0) {
+		bitAnalyzer.getWordList(goldenPath);
 	}
 	else {
 		std::cerr << "Unrecognized parse operation";
@@ -56,6 +59,7 @@ std::vector<std::string> BitStreamParser::getDefinedParseOperations() {
 	definedParseOperations.push_back("LUT");
 	definedParseOperations.push_back("IOB");
 	definedParseOperations.push_back("Interconnect Resources");
+	definedParseOperations.push_back("Word Map");
 	return definedParseOperations;
 }
 void BitStreamParser::initialSynthesis() {
