@@ -74,7 +74,7 @@ struct Word {
 	Word(int o_, std::string h_) :
 		wordNumber(o_),
 		hexWord(h_),
-		byteNumber(o_ * 8),
+		byteNumber(o_ * 4),
 		bitNumber(o_ * 32)
 	{
 		//Command Words
@@ -96,7 +96,8 @@ struct Word {
 
 		//Bitstream Data Frames
 		else if (boost::iequals(h_, "30004000")) CMD_Definition = "FDRI Write Packet Header (Type 1)";
-		else if (boost::iequals(h_, "5000CF00")) CMD_Definition = "FDRI Write Packet Header (Type 2)";
+		//else if (boost::iequals(h_, "5000CF00")) CMD_Definition = "FDRI Write Packet Header (Type 2)";
+		else if (boost::iequals(h_, "500046A1")) CMD_Definition = "FDRI Write Packet Header (Type 2)";
 		else if (boost::iequals(h_, "0000000A")) CMD_Definition = "CMD Write Packet Data (GRESTORE)";
 		else if (boost::iequals(h_, "00000003")) CMD_Definition = "CMD Write Packet Data (DGHIGH/LFRM)";
 		else if (boost::iequals(h_, "20000000")) CMD_Definition = "No Op (one frame worth)";

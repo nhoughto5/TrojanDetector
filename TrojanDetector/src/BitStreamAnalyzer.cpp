@@ -42,23 +42,58 @@ void BitStreamAnalyzer::getWordList(std::string binFilePath) {
 
 	std::ofstream wordFile;
 	wordFile.open("BitstreamWordList.txt");
-	wordFile << "WordNumber     CommandType                          hexValue(hex)     byteOffset(int)     BitOffset(int)\n";
+	wordFile << "WordNumber     CommandType                          hexValue(hex)     byteOffset(hex)     BitOffset(int)\n";
 	const char seperator = ' ';
 	int numWidth = 15;
 	int typLength = 37;
-	int hexLength = 18;
-	int byteLength = 20;
+	int hexLength = 16;
+	int byteLength = 18;
 	int bitLength = 20;
 	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
 		wordFile
 			<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
 			<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
-			<< std::left << std::setw(hexLength) << std::setfill(seperator)  << boost::to_upper_copy<std::string>(it->hexWord)
-			<< std::left << std::setw(byteLength) << std::setfill(seperator)  << it->wordNumber
-			<< std::left << std::setw(bitLength) << std::setfill(seperator) <<it->bitNumber << "\n";
+			<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator)  << boost::to_upper_copy<std::string>(it->hexWord)
+			<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator)  << hexFormat(it->byteNumber)
+			<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec <<it->bitNumber << "\n";
 		
 	}
 	wordFile.close();
+
+	std::ofstream summaryFile;
+	summaryFile.open("BitStreamSummary.txt");
+	int emptyCount = 0;
+	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
+		if (boost::iequals(it->hexWord, "00000000") && emptyCount < 2) {
+			++emptyCount;
+			summaryFile
+				<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
+				<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
+				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
+				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
+				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber << "\n";
+		}
+		if (boost::iequals(it->hexWord, "00000000") && emptyCount == 2) {
+			++emptyCount;
+			summaryFile
+				<< std::left << std::setw(numWidth) << std::setfill(seperator) << "..."
+				<< std::left << std::setw(typLength) << std::setfill(seperator) << "..."
+				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << "..."
+				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << "..."
+				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << "..." << "\n";
+		}
+		if (!boost::iequals(it->hexWord, "00000000")) {
+			emptyCount = 0;
+			summaryFile
+				<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
+				<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
+				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
+				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
+				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber << "\n";
+		}
+
+	}
+	summaryFile.close();
 	return;
 }
 std::string BitStreamAnalyzer::getPath() {
