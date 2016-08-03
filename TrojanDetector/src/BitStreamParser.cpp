@@ -345,7 +345,7 @@ void BitStreamParser::makeInitFiles() {
 	std::ofstream utFile;
 	utFile.open(path + "item.ut");
 	utFile << "-w\n";
-	utFile << "-g DebugBitstream:No\n";
+	utFile << "-g DebugBitstream:Yes\n";
 	utFile << "-g Binary:yes\n";
 	utFile << "-g CRC:Enable\n";
 	utFile << "-g ConfigRate:1\n";

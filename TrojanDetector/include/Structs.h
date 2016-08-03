@@ -106,10 +106,10 @@ struct Word {
 		else if (boost::iequals(h_, "00000005")) CMD_Definition = "CMD Write Packet Data (START)";
 		else if (boost::iequals(h_, "3000A001")) CMD_Definition = "CTL Write Packet Header";
 		else if (boost::iequals(h_, "30000001")) CMD_Definition = "CRC Write Packet Header";
-		else if (boost::iequals(h_, "CMD Write Packet Data (DESYNC)")) CMD_Definition = "0000000D";
+		else if (boost::iequals(h_, "0000000D")) CMD_Definition = "CMD Write Packet Data (DESYNC)";
 
 		//Frame End
-		else if (boost::iequals(h_, "LOUT Write (End of Frame)")) CMD_Definition = "30010001";
+		else if (boost::iequals(h_, "30010001")) CMD_Definition = "LOUT Write (End of Frame)";
 
 
 		else CMD_Definition = "Data";
