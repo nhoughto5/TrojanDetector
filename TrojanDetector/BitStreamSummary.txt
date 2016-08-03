@@ -1,3 +1,4 @@
+WordNumber     CommandType                          hexValue(hex)     byteOffset(hex)     BitOffset(int)
 0              Dummy Word                           0xFFFFFFFF        0x00000000          0                   
 1              Synchronization Word                 0xAA995566        0x00000004          32                  
 2              LOUT Write (End of Frame)            0x30010001        0x00000008          64                  

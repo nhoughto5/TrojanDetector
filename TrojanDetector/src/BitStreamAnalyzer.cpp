@@ -62,6 +62,7 @@ void BitStreamAnalyzer::getWordList(std::string binFilePath) {
 
 	std::ofstream summaryFile;
 	summaryFile.open("BitStreamSummary.txt");
+	summaryFile << "WordNumber     CommandType                          hexValue(hex)     byteOffset(hex)     BitOffset(int)\n";
 	int emptyCount = 0;
 	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
 		if (boost::iequals(it->hexWord, "00000000") && emptyCount < 2) {
