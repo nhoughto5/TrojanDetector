@@ -252,13 +252,6 @@ public:
         horizontalLayout_10->addWidget(label_6);
 
         tabWidget->addTab(tab, QString());
-        bitstreamParseTextBox->raise();
-        parseBtn->raise();
-        layoutWidget->raise();
-        layoutWidget->raise();
-        layoutWidget->raise();
-        parseTargetComboBox->raise();
-        label_6->raise();
         layoutWidget3 = new QWidget(centralWidget);
         layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
         layoutWidget3->setGeometry(QRect(10, 10, 689, 60));

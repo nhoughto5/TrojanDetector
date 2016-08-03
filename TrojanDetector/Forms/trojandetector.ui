@@ -302,13 +302,6 @@
        </item>
       </layout>
      </widget>
-     <zorder>bitstreamParseTextBox</zorder>
-     <zorder>parseBtn</zorder>
-     <zorder>layoutWidget</zorder>
-     <zorder>layoutWidget</zorder>
-     <zorder>layoutWidget</zorder>
-     <zorder>parseTargetComboBox</zorder>
-     <zorder>label_6</zorder>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget">
