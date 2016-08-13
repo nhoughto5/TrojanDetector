@@ -54,9 +54,7 @@ std::vector<std::string> BitStreamParser::getDefinedParseOperations() {
 	definedParseOperations.push_back("Word Map");
 	return definedParseOperations;
 }
-void sendUpdatePercentSignal(double percent) {
-	emit percent;
-}
+
 void BitStreamParser::locateLUTs() {
 	std::vector<Coordinate> LUTCoordinates = Model.getLUTCoordinates();
 	synthesizer.synthesisSetup();
@@ -111,7 +109,7 @@ void BitStreamParser::locateLUTs() {
 			<< std::left << std::setw(timeWidth) << std::setfill(seperator) << pt::second_clock::local_time().time_of_day() << std::endl;
 		++i;
 		cleanUP();
-		sendUpdatePercentSignal(double(i / numberOfLUTS));
+		emit sendUpdatePercentSignal(double(i / (double)numberOfLUTS));
 	}
 
 	//const std::vector<libraryEntry>* lutLibrary = lib.getLibrary();
@@ -128,7 +126,7 @@ lutOffsetResponse BitStreamParser::readBitFile() {
 }
 lutOffsetResponse BitStreamParser::getLUTOffset(DeviceType deviceType, Coordinate coordinate) {
 	update_UCF_PCF(deviceType, coordinate);
-	synthesizer.synthesize();
+	synthesizer.synthesize(false);
 	return readBitFile();
 }
 

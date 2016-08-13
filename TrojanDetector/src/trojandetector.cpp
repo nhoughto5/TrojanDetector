@@ -6,8 +6,7 @@ TrojanDetector::TrojanDetector(QWidget *parent)	:
 	libraryFileLoaded(false),
 	targetFileLoaded(false),
 	synthPathSet(false),
-	parser(),
-	syn()
+	parseDirectoryChosen(false)
 {
 	ui.setupUi(this);
 	definedModels = Model.getDefinedDevices();
@@ -19,10 +18,10 @@ TrojanDetector::TrojanDetector(QWidget *parent)	:
 		ui.parseTargetComboBox->addItem(QString::fromStdString(*it));
 	}
 
-	QObject::connect(&parser, &BitStreamParser::sendUpdatePercentSignal, this, &TrojanDetector::updateMessage);
+	QObject::connect(&parser, &BitStreamParser::sendUpdatePercentSignal, this, &TrojanDetector::updateParseProgress);
 	QObject::connect(&syn, &Synthesizer::sendPercentSynthesized, this, &TrojanDetector::updateProgress);
 	ui.synthesisProgressBar->setValue(0);
-	//ui.synthesisProgressBar->hide();
+	ui.parseProgressBar->setValue(0);
 }
 
 TrojanDetector::~TrojanDetector()
@@ -34,10 +33,8 @@ void TrojanDetector::updateProgress(double p) {
 	ui.synthesisProgressBar->setValue(p);
 }
 
-void TrojanDetector::updateMessage(double percent) {
-	//ui.bitstreamParseTextBox->setText(QString::fromStdString(std::to_string(percent) + "%"));
-	ui.bitstreamParseTextBox->setText("Hello");
-	std::cout << "Percent: " << percent << "\n";
+void TrojanDetector::updateParseProgress(double percent) {
+	ui.parseProgressBar->setValue(100 * percent);
 }
 
 void TrojanDetector::on_selectSynthesisFolder_Btn_Clicked() {
@@ -174,22 +171,29 @@ void TrojanDetector::on_analyzeBtn_Clicked() {
 }
 
 void TrojanDetector::on_xilinxDirectoryBrowse_Clicked() {
+	parseDirectoryChosen = true;
 	dir.clear();
 	dir = QFileDialog::getExistingDirectory(
 		this,
 		tr("Target Files"),
-		"C://",
+		QDir::current().absolutePath(),
 		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	dir = dir + "/";
 	parser.setPath(dir.toLocal8Bit().constData());
 }
 void TrojanDetector::on_parseBtn_Clicked() {
-	parser.startParse(ui.deviceModelComboBox->currentText().toLocal8Bit().constData(), ui.parseTargetComboBox->currentText().toLocal8Bit().constData(), goldenBitReader.getPath());
+	if (parseDirectoryChosen) {
+		ui.bitstreamParseTextBox->setText("Parsing, this may take a while...");
+		parser.startParse(ui.deviceModelComboBox->currentText().toLocal8Bit().constData(), ui.parseTargetComboBox->currentText().toLocal8Bit().constData(), goldenBitReader.getPath());
+	}
+	else {
+		ui.bitstreamParseTextBox->setText("Please Select Xilinx File Location");
+	}
 }
 
 void TrojanDetector::on_synthesizeBtn_Clicked() {
 	if (synthPathSet) {
-		//ui.synthesisProgressBar->show();
+		ui.synthesisTextBox->setText("Synthesizing...");
 		synthPathSet = false;
 		syn.setPath(synthesisDir.toLocal8Bit().constData());
 		syn.singleSynthesis();

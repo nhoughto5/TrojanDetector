@@ -73,7 +73,6 @@ public:
     QTextBrowser *binFileViewer;
     QGroupBox *groupBox_2;
     QWidget *tab;
-    QTextBrowser *bitstreamParseTextBox;
     QPushButton *parseBtn;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_3;
@@ -88,6 +87,10 @@ public:
     QHBoxLayout *horizontalLayout_10;
     QComboBox *parseTargetComboBox;
     QLabel *label_6;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_2;
+    QProgressBar *parseProgressBar;
+    QTextBrowser *bitstreamParseTextBox;
     QWidget *tab_2;
     QLabel *label_8;
     QComboBox *deviceModelComboBox_2;
@@ -265,9 +268,6 @@ public:
         tabWidget->addTab(StatTest, QString());
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        bitstreamParseTextBox = new QTextBrowser(tab);
-        bitstreamParseTextBox->setObjectName(QStringLiteral("bitstreamParseTextBox"));
-        bitstreamParseTextBox->setGeometry(QRect(0, 71, 691, 141));
         parseBtn = new QPushButton(tab);
         parseBtn->setObjectName(QStringLiteral("parseBtn"));
         parseBtn->setGeometry(QRect(610, 40, 75, 23));
@@ -331,6 +331,25 @@ public:
 
         horizontalLayout_10->addWidget(label_6);
 
+        widget = new QWidget(tab);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(0, 70, 691, 221));
+        verticalLayout_2 = new QVBoxLayout(widget);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        parseProgressBar = new QProgressBar(widget);
+        parseProgressBar->setObjectName(QStringLiteral("parseProgressBar"));
+        parseProgressBar->setValue(24);
+
+        verticalLayout_2->addWidget(parseProgressBar);
+
+        bitstreamParseTextBox = new QTextBrowser(widget);
+        bitstreamParseTextBox->setObjectName(QStringLiteral("bitstreamParseTextBox"));
+
+        verticalLayout_2->addWidget(bitstreamParseTextBox);
+
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
@@ -364,8 +383,6 @@ public:
         verticalLayout->addWidget(tabWidget);
 
         TrojanDetectorClass->setCentralWidget(centralWidget);
-        layoutWidget->raise();
-        tabWidget->raise();
         menuBar = new QMenuBar(TrojanDetectorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 717, 21));
@@ -400,7 +417,7 @@ public:
         QObject::connect(synthesizeBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_synthesizeBtn_Clicked()));
         QObject::connect(clearFolderBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_clearFolderBtn_Clicked()));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(TrojanDetectorClass);

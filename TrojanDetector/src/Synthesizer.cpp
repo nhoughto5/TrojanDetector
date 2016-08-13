@@ -14,7 +14,7 @@ void Synthesizer::singleSynthesis() {
 	synthesisSetup();
 	emit sendPercentSynthesized(5);
 	makeUCF(F_LUT, Coordinate(0,0));
-	synthesize();
+	synthesize(true);
 }
 
 void Synthesizer::deleteAllFiles(std::string p) {
@@ -39,7 +39,7 @@ void Synthesizer::setPath(std::string p) {
 	wPath = converter.from_bytes(p);
 }
 
-void Synthesizer::synthesize() {
+void Synthesizer::synthesize(bool update) {
 	std::wstring ngdPath = L"C:\\Xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\ngdbuild.exe";
 	std::wstring mapPath = L"C:\\Xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\map.exe";
 	std::wstring trcePath = L"C:\\Xilinx\\14.7\\ISE_DS\\ISE\\bin\\nt\\trce.exe";
@@ -50,17 +50,17 @@ void Synthesizer::synthesize() {
 	std::wstring parArgs = L"-intstyle silent -ol high -t 1 item_map.ncd item.ncd item.pcf";
 	std::wstring trceArgs = L"-intstyle silent -v 3 -s 4 -n 3 -fastpaths -xml item.twx item.ncd -o item.twr item.pcf -ucf item.ucf";
 	std::wstring bitgenArgs = L"-intstyle silent -f item.ut item.ncd";
-	emit sendPercentSynthesized(10);
+	if (update) emit sendPercentSynthesized(10);
 	ExecuteProcess(ngdPath, ngdArgs, 10, wPath);
-	emit sendPercentSynthesized(20);
+	if (update) emit sendPercentSynthesized(20);
 	ExecuteProcess(mapPath, mapArgs, 10, wPath);
-	emit sendPercentSynthesized(40);
+	if (update) emit sendPercentSynthesized(40);
 	ExecuteProcess(parPath, parArgs, 10, wPath);
-	emit sendPercentSynthesized(60);
+	if (update) emit sendPercentSynthesized(60);
 	ExecuteProcess(trcePath, trceArgs, 10, wPath);
-	emit sendPercentSynthesized(80);
+	if (update) emit sendPercentSynthesized(80);
 	ExecuteProcess(bitgenPath, bitgenArgs, 10, wPath);
-	emit sendPercentSynthesized(100);
+	if (update) emit sendPercentSynthesized(100);
 }
 
 size_t Synthesizer::ExecuteProcess(std::wstring FullPathToExe, std::wstring Parameters, size_t SecondsToWait, std::wstring wPath)

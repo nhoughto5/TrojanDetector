@@ -15,7 +15,7 @@ class Synthesizer : public QObject
 public:
 	Synthesizer();
 	~Synthesizer();
-	void synthesize();
+	void synthesize(bool update);
 	void setPath(std::string p, std::wstring wP);
 	void setPath(std::string p);
 	void synthesisSetup();

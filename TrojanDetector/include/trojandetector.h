@@ -22,7 +22,7 @@ public:
 private:
 	Ui::TrojanDetectorClass ui;
 	Library deviceLib;
-	bool libraryFileLoaded, goldenChipFileAnalyzed, targetFileLoaded, synthPathSet;
+	bool parseDirectoryChosen, libraryFileLoaded, goldenChipFileAnalyzed, targetFileLoaded, synthPathSet;
 	BitStreamAnalyzer goldenBitReader, targetBitReader;
 	std::vector<Device> statisticTestDevices;
 	std::vector<std::string> definedModels, definedOperations;
@@ -33,7 +33,7 @@ private:
 	DeviceModel Model;
 	Synthesizer syn;
 private slots:
-	void updateMessage(double percent);
+	void updateParseProgress(double percent);
 	void updateProgress(double p);
 	void on_goldenFileBrowse_Clicked();
 	void on_singleTrojanBrowse_Clicked();
