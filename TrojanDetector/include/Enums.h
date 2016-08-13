@@ -8,4 +8,5 @@ enum DeviceConfiguration { XQ_LATCH, YQ_LATCH, F_RAM, G_RAM, pip, NONE };
 
 enum IOBType { DIFFM, DIFFS, IOB, DIFFMI, DIFFSI, IBUF };
 
+enum ColumnType {TERM_L, IOI_L, CLB, BRAM, BRAM_IntCnct, GCLK, IOI_R, TERM_R};
 #endif

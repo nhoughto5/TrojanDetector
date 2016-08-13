@@ -10,6 +10,7 @@
 #include "Analyzer.h"
 #include "BitStreamParser.h"
 #include "DeviceModel.h"
+#include "Synthesizer.h"
 //Test Change
 class TrojanDetector : public QMainWindow
 {
@@ -21,17 +22,19 @@ public:
 private:
 	Ui::TrojanDetectorClass ui;
 	Library deviceLib;
-	bool libraryFileLoaded, goldenChipFileAnalyzed, targetFileLoaded;
+	bool libraryFileLoaded, goldenChipFileAnalyzed, targetFileLoaded, synthPathSet;
 	BitStreamAnalyzer goldenBitReader, targetBitReader;
 	std::vector<Device> statisticTestDevices;
 	std::vector<std::string> definedModels, definedOperations;
 	Device goldenDevice, targetDevice;
 	QStringList statFileNames;
-	QString dir;
+	QString dir, synthesisDir;
 	BitStreamParser parser;
 	DeviceModel Model;
+	Synthesizer syn;
 private slots:
 	void updateMessage(double percent);
+	void updateProgress(double p);
 	void on_goldenFileBrowse_Clicked();
 	void on_singleTrojanBrowse_Clicked();
 	void on_libraryFileBrowse_Clicked();
@@ -40,6 +43,9 @@ private slots:
 	void on_analyzeStatBtn_Clicked();
 	void on_xilinxDirectoryBrowse_Clicked();
 	void on_parseBtn_Clicked();
+	void on_selectSynthesisFolder_Btn_Clicked();
+	void on_synthesizeBtn_Clicked();
+	void on_clearFolderBtn_Clicked();
 };
 
 #endif // TROJANDETECTOR_H

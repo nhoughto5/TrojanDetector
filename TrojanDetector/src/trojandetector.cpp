@@ -4,7 +4,10 @@ TrojanDetector::TrojanDetector(QWidget *parent)	:
 	QMainWindow(parent),
 	goldenChipFileAnalyzed(false),
 	libraryFileLoaded(false),
-	targetFileLoaded(false)
+	targetFileLoaded(false),
+	synthPathSet(false),
+	parser(),
+	syn()
 {
 	ui.setupUi(this);
 	definedModels = Model.getDefinedDevices();
@@ -17,23 +20,44 @@ TrojanDetector::TrojanDetector(QWidget *parent)	:
 	}
 
 	QObject::connect(&parser, &BitStreamParser::sendUpdatePercentSignal, this, &TrojanDetector::updateMessage);
+	QObject::connect(&syn, &Synthesizer::sendPercentSynthesized, this, &TrojanDetector::updateProgress);
+	ui.synthesisProgressBar->setValue(0);
+	//ui.synthesisProgressBar->hide();
 }
 
 TrojanDetector::~TrojanDetector()
 {
 
 }
+
+void TrojanDetector::updateProgress(double p) {
+	ui.synthesisProgressBar->setValue(p);
+}
+
 void TrojanDetector::updateMessage(double percent) {
 	//ui.bitstreamParseTextBox->setText(QString::fromStdString(std::to_string(percent) + "%"));
 	ui.bitstreamParseTextBox->setText("Hello");
 	std::cout << "Percent: " << percent << "\n";
 }
+
+void TrojanDetector::on_selectSynthesisFolder_Btn_Clicked() {
+	synthPathSet = true;
+	synthesisDir.clear();
+	synthesisDir = QFileDialog::getExistingDirectory(
+		this,
+		tr("Synthesis Files Location"),
+		QDir::current().absolutePath(),
+		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	synthesisDir += "/";
+	QDir directory(synthesisDir);
+}
+
 void TrojanDetector::on_goldenFileBrowse_Clicked() {
 	goldenChipFileAnalyzed = true;
 	QString fileName = QFileDialog::getOpenFileName(
 		this,
 		tr("Golden Chip"),
-		"C://", //Default Open
+		QDir::current().absolutePath(), //Default Open
 		"Bin File (*.bin)" //File Filters
 		);
 	goldenBitReader.clear();
@@ -46,7 +70,7 @@ void TrojanDetector::on_singleTrojanBrowse_Clicked() {
 	QString fileName = QFileDialog::getOpenFileName(
 		this,
 		tr("Trojan File"),
-		"C://", //Default Open
+		QDir::current().absolutePath(), //Default Open
 		"Bin File (*.bin)" //File Filters
 		);
 	targetBitReader.clear();
@@ -59,7 +83,7 @@ void TrojanDetector::on_libraryFileBrowse_Clicked() {
 	QString fileName = QFileDialog::getOpenFileName(
 		this,
 		tr("Library File"),
-		"C://", //Default Open
+		QDir::current().absolutePath(), //Default Open
 		"Text File (*.txt)" //File Filters
 		);
 	//Convert QString to std::string and send to Library;
@@ -72,7 +96,7 @@ void TrojanDetector::on_multipleTargetBrowse_Clicked() {
 	dir = QFileDialog::getExistingDirectory(
 		this,
 		tr("Target Files"),
-		"C://",
+		QDir::current().absolutePath(),
 		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	QStringList nameFilter("*.bin");
 	QDir directory(dir);
@@ -161,4 +185,26 @@ void TrojanDetector::on_xilinxDirectoryBrowse_Clicked() {
 }
 void TrojanDetector::on_parseBtn_Clicked() {
 	parser.startParse(ui.deviceModelComboBox->currentText().toLocal8Bit().constData(), ui.parseTargetComboBox->currentText().toLocal8Bit().constData(), goldenBitReader.getPath());
+}
+
+void TrojanDetector::on_synthesizeBtn_Clicked() {
+	if (synthPathSet) {
+		//ui.synthesisProgressBar->show();
+		synthPathSet = false;
+		syn.setPath(synthesisDir.toLocal8Bit().constData());
+		syn.singleSynthesis();
+		ui.synthesisTextBox->setText("Synthesis Complete");
+	}
+	else {
+		ui.synthesisTextBox->setText("Error, please select synthesis folder");
+	}
+}
+
+void TrojanDetector::on_clearFolderBtn_Clicked() {
+	if (synthPathSet) {
+		syn.deleteAllFiles(synthesisDir.toLocal8Bit().constData());
+		ui.synthesisTextBox->setText("All Files Deleted");
+		synthPathSet = false;
+	}
+
 }

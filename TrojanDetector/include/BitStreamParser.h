@@ -35,14 +35,14 @@ signals:
 
 private:
 	void parseLUT();
-	void makeDirectories();
-	void makeInitFiles();
+	//void makeDirectories();
+	//void makeInitFiles();
 	void locateLUTs();
 	void cleanUP();
 	std::set<std::string> setDifferences(std::set<std::string> a, std::set<std::string> b);
 	std::set<std::string> listOfFiles(std::string fileName);
 	void deleteResources(std::set<std::string> files);
-	void initialSynthesis();
+	//void initialSynthesis();
 	lutOffsetResponse getLUTOffset(DeviceType deviceType, Coordinate coordinate);
 	void update_UCF_PCF(DeviceType deviceType, Coordinate coordinate);
 	lutOffsetResponse readBitFile();
