@@ -111,7 +111,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="SingleTrojanTest">
        <attribute name="title">
@@ -376,7 +376,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -403,29 +403,6 @@
        <attribute name="title">
         <string>Synthesize</string>
        </attribute>
-       <widget class="QLabel" name="label_8">
-        <property name="geometry">
-         <rect>
-          <x>163</x>
-          <y>20</y>
-          <width>146</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Select Device Model</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="deviceModelComboBox_2">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>147</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QPushButton" name="selectSynthesisFolder_Btn">
         <property name="geometry">
          <rect>
@@ -465,16 +442,6 @@
          <string>Select Synthesis Folder</string>
         </property>
        </widget>
-       <widget class="QTextBrowser" name="synthesisTextBox">
-        <property name="geometry">
-         <rect>
-          <x>1</x>
-          <y>68</y>
-          <width>256</width>
-          <height>161</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QPushButton" name="clearFolderBtn">
         <property name="geometry">
          <rect>
@@ -488,18 +455,49 @@
          <string>Clear Folder</string>
         </property>
        </widget>
-       <widget class="QProgressBar" name="synthesisProgressBar">
+       <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>1</x>
-          <y>41</y>
-          <width>261</width>
-          <height>21</height>
+          <x>0</x>
+          <y>40</y>
+          <width>258</width>
+          <height>221</height>
          </rect>
         </property>
-        <property name="value">
-         <number>24</number>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QProgressBar" name="synthesisProgressBar">
+           <property name="value">
+            <number>24</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextBrowser" name="synthesisTextBox"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>261</width>
+          <height>22</height>
+         </rect>
         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QComboBox" name="deviceModelComboBox_2"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Select Device Model</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>

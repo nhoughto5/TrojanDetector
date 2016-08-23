@@ -13,6 +13,7 @@ public:
 	~DeviceModel();
 
 	void setDevice_Xa3s100E();
+	void setDevice_XC3S50();
 	std::vector<Coordinate> getLUTCoordinates();
 	int getMaxX(), getMaxY();
 	std::vector<std::string> getDefinedDevices();

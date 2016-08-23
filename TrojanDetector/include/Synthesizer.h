@@ -21,7 +21,7 @@ public:
 	void synthesisSetup();
 	void deleteAllFiles(std::string p);
 	void singleSynthesis();
-
+	void setDeviceType(std::string model);
 signals:
 	void sendPercentSynthesized(double p);
 private:
@@ -30,7 +30,7 @@ private:
 	void makeDirectories();
 	void makeInitFiles();
 	void makeUCF(DeviceType deviceType, Coordinate coordinate);
-	std::string path;
+	std::string path, deviceModel;
 	std::wstring wPath;
 };
 

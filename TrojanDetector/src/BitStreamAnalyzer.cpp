@@ -99,28 +99,35 @@ void BitStreamAnalyzer::makeFrameList() {
 	}
 	bool firstFrame;
 	Frame* temp;
+
+
 	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
-		if (boost::iequals(it->hexWord, "00000001")) {
-			dataStart = true;
-			temp = new Frame();
-			continue;
-		}
-		if (dataStart) {
-			//Create a new frame
-			if (boost::iequals(it->hexWord, "30010001")) {
-				frameList.push_back(*temp);
-				temp = new Frame();
-			}
-			//Check that it is not tail data or frame type definition CMD words
-			if (dataEnd && (boost::iequals(it->CMD_Definition, "Empty or Unconfigured") || boost::iequals(it->CMD_Definition, "Data"))) {
-				temp->addWord(*it);
-			}
-		}
-		//Reached the tail information
-		if (boost::iequals(it->hexWord, "30008001")) {
-			dataEnd = true;
-		}
+
 	}
+
+
+	//for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
+	//	if (boost::iequals(it->hexWord, "00000001")) {
+	//		dataStart = true;
+	//		temp = new Frame();
+	//		continue;
+	//	}
+	//	if (dataStart) {
+	//		//Create a new frame
+	//		if (boost::iequals(it->hexWord, "30010001")) {
+	//			frameList.push_back(*temp);
+	//			temp = new Frame();
+	//		}
+	//		//Check that it is not tail data or frame type definition CMD words
+	//		if (dataEnd && (boost::iequals(it->CMD_Definition, "Empty or Unconfigured") || boost::iequals(it->CMD_Definition, "Data"))) {
+	//			temp->addWord(*it);
+	//		}
+	//	}
+	//	//Reached the tail information
+	//	if (boost::iequals(it->hexWord, "30008001")) {
+	//		dataEnd = true;
+	//	}
+	//}
 }
 
 std::string BitStreamAnalyzer::getPath() {

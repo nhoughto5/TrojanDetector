@@ -18,6 +18,7 @@
 #include "DeviceModel.h"
 #include "Synthesizer.h"
 #include "BitStreamAnalyzer.h"
+#include "Word.h"
 
 class BitStreamParser : public QObject
 {

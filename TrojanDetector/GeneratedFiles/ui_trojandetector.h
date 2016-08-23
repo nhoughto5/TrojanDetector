@@ -87,19 +87,23 @@ public:
     QHBoxLayout *horizontalLayout_10;
     QComboBox *parseTargetComboBox;
     QLabel *label_6;
-    QWidget *widget;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout_2;
     QProgressBar *parseProgressBar;
     QTextBrowser *bitstreamParseTextBox;
     QWidget *tab_2;
-    QLabel *label_8;
-    QComboBox *deviceModelComboBox_2;
     QPushButton *selectSynthesisFolder_Btn;
     QPushButton *synthesizeBtn;
     QLabel *label_9;
-    QTextBrowser *synthesisTextBox;
     QPushButton *clearFolderBtn;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_3;
     QProgressBar *synthesisProgressBar;
+    QTextBrowser *synthesisTextBox;
+    QWidget *widget1;
+    QHBoxLayout *horizontalLayout_11;
+    QComboBox *deviceModelComboBox_2;
+    QLabel *label_8;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -331,21 +335,21 @@ public:
 
         horizontalLayout_10->addWidget(label_6);
 
-        widget = new QWidget(tab);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(0, 70, 691, 221));
-        verticalLayout_2 = new QVBoxLayout(widget);
+        layoutWidget3 = new QWidget(tab);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(0, 70, 691, 221));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget3);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        parseProgressBar = new QProgressBar(widget);
+        parseProgressBar = new QProgressBar(layoutWidget3);
         parseProgressBar->setObjectName(QStringLiteral("parseProgressBar"));
         parseProgressBar->setValue(24);
 
         verticalLayout_2->addWidget(parseProgressBar);
 
-        bitstreamParseTextBox = new QTextBrowser(widget);
+        bitstreamParseTextBox = new QTextBrowser(layoutWidget3);
         bitstreamParseTextBox->setObjectName(QStringLiteral("bitstreamParseTextBox"));
 
         verticalLayout_2->addWidget(bitstreamParseTextBox);
@@ -353,12 +357,6 @@ public:
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        label_8 = new QLabel(tab_2);
-        label_8->setObjectName(QStringLiteral("label_8"));
-        label_8->setGeometry(QRect(163, 20, 146, 20));
-        deviceModelComboBox_2 = new QComboBox(tab_2);
-        deviceModelComboBox_2->setObjectName(QStringLiteral("deviceModelComboBox_2"));
-        deviceModelComboBox_2->setGeometry(QRect(10, 20, 147, 20));
         selectSynthesisFolder_Btn = new QPushButton(tab_2);
         selectSynthesisFolder_Btn->setObjectName(QStringLiteral("selectSynthesisFolder_Btn"));
         selectSynthesisFolder_Btn->setGeometry(QRect(601, 21, 75, 23));
@@ -368,16 +366,46 @@ public:
         label_9 = new QLabel(tab_2);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(470, 20, 121, 20));
-        synthesisTextBox = new QTextBrowser(tab_2);
-        synthesisTextBox->setObjectName(QStringLiteral("synthesisTextBox"));
-        synthesisTextBox->setGeometry(QRect(1, 68, 256, 161));
         clearFolderBtn = new QPushButton(tab_2);
         clearFolderBtn->setObjectName(QStringLiteral("clearFolderBtn"));
         clearFolderBtn->setGeometry(QRect(600, 80, 75, 23));
-        synthesisProgressBar = new QProgressBar(tab_2);
+        widget = new QWidget(tab_2);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(0, 40, 258, 221));
+        verticalLayout_3 = new QVBoxLayout(widget);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        synthesisProgressBar = new QProgressBar(widget);
         synthesisProgressBar->setObjectName(QStringLiteral("synthesisProgressBar"));
-        synthesisProgressBar->setGeometry(QRect(1, 41, 261, 21));
         synthesisProgressBar->setValue(24);
+
+        verticalLayout_3->addWidget(synthesisProgressBar);
+
+        synthesisTextBox = new QTextBrowser(widget);
+        synthesisTextBox->setObjectName(QStringLiteral("synthesisTextBox"));
+
+        verticalLayout_3->addWidget(synthesisTextBox);
+
+        widget1 = new QWidget(tab_2);
+        widget1->setObjectName(QStringLiteral("widget1"));
+        widget1->setGeometry(QRect(0, 20, 261, 22));
+        horizontalLayout_11 = new QHBoxLayout(widget1);
+        horizontalLayout_11->setSpacing(6);
+        horizontalLayout_11->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        horizontalLayout_11->setContentsMargins(0, 0, 0, 0);
+        deviceModelComboBox_2 = new QComboBox(widget1);
+        deviceModelComboBox_2->setObjectName(QStringLiteral("deviceModelComboBox_2"));
+
+        horizontalLayout_11->addWidget(deviceModelComboBox_2);
+
+        label_8 = new QLabel(widget1);
+        label_8->setObjectName(QStringLiteral("label_8"));
+
+        horizontalLayout_11->addWidget(label_8);
+
         tabWidget->addTab(tab_2, QString());
 
         verticalLayout->addWidget(tabWidget);
@@ -417,7 +445,7 @@ public:
         QObject::connect(synthesizeBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_synthesizeBtn_Clicked()));
         QObject::connect(clearFolderBtn, SIGNAL(clicked()), TrojanDetectorClass, SLOT(on_clearFolderBtn_Clicked()));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(TrojanDetectorClass);
@@ -449,11 +477,11 @@ public:
         label_7->setText(QApplication::translate("TrojanDetectorClass", "Select Device Model", 0));
         label_6->setText(QApplication::translate("TrojanDetectorClass", "Select Parse Target", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("TrojanDetectorClass", "Bitstream Parser", 0));
-        label_8->setText(QApplication::translate("TrojanDetectorClass", "Select Device Model", 0));
         selectSynthesisFolder_Btn->setText(QApplication::translate("TrojanDetectorClass", "Browse", 0));
         synthesizeBtn->setText(QApplication::translate("TrojanDetectorClass", "Synthesize", 0));
         label_9->setText(QApplication::translate("TrojanDetectorClass", "Select Synthesis Folder", 0));
         clearFolderBtn->setText(QApplication::translate("TrojanDetectorClass", "Clear Folder", 0));
+        label_8->setText(QApplication::translate("TrojanDetectorClass", "Select Device Model", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("TrojanDetectorClass", "Synthesize", 0));
         menuFile->setTitle(QApplication::translate("TrojanDetectorClass", "File", 0));
         menuHelp->setTitle(QApplication::translate("TrojanDetectorClass", "Help", 0));
