@@ -2,6 +2,8 @@
 #define STRUCTS_H
 #pragma once
 #include <string>
+#include <sstream>
+#include <bitset>
 #include <boost/algorithm/string.hpp>
 #include "Enums.h"
 
@@ -66,56 +68,5 @@ struct libraryEntry {
 
 	}
 };
-
-struct Word {
-	int wordNumber;
-	std::string hexWord, CMD_Definition;
-	int byteNumber, bitNumber;
-	Word(int o_, std::string h_) :
-		wordNumber(o_),
-		hexWord(h_),
-		byteNumber(o_ * 4),
-		bitNumber(o_ * 32)
-	{
-		//Command Words
-		if (boost::iequals(h_, "FFFFFFFF")) CMD_Definition = "Dummy Word";
-		else if (boost::iequals(h_, "AA995566")) CMD_Definition = "Synchronization Word";
-		else if (boost::iequals(h_, "30008001")) CMD_Definition = "CMD Write Packet Header";
-		else if (boost::iequals(h_, "00000007")) CMD_Definition = "CMD Write Packet Data (Reset CRC)";
-		else if (boost::iequals(h_, "30016001")) CMD_Definition = "FLR Write Packet Header";
-		else if (boost::iequals(h_, "00000044")) CMD_Definition = "FLR Write Packet Data";
-		else if (boost::iequals(h_, "30012001")) CMD_Definition = "COR Write Packet Header";
-		else if (boost::iequals(h_, "00003FE5")) CMD_Definition = "COR Write Packet Data";
-		else if (boost::iequals(h_, "3001C001")) CMD_Definition = "IDCODE Write Packet Header";
-		else if (boost::iequals(h_, "0141C093")) CMD_Definition = "IDCODE Write Packet Data (3S400)";
-		else if (boost::iequals(h_, "3000C001")) CMD_Definition = "MASK Write Packet Header";
-		else if (boost::iequals(h_, "00000000")) CMD_Definition = "Empty or Unconfigured";
-		else if (boost::iequals(h_, "00000009")) CMD_Definition = "CMD Write Packet Data";
-		else if (boost::iequals(h_, "30002001")) CMD_Definition = "FAR Write Packet Header";
-		else if (boost::iequals(h_, "00000001")) CMD_Definition = "CMD Write Packet Data (WCFG)";
-
-		//Bitstream Data Frames
-		else if (boost::iequals(h_, "30004000")) CMD_Definition = "FDRI Write Packet Header (Type 1)";
-		//else if (boost::iequals(h_, "5000CF00")) CMD_Definition = "FDRI Write Packet Header (Type 2)";
-		else if (boost::iequals(h_, "500046A1")) CMD_Definition = "FDRI Write Packet Header (Type 2)";
-		else if (boost::iequals(h_, "0000000A")) CMD_Definition = "CMD Write Packet Data (GRESTORE)";
-		else if (boost::iequals(h_, "00000003")) CMD_Definition = "CMD Write Packet Data (DGHIGH/LFRM)";
-		else if (boost::iequals(h_, "20000000")) CMD_Definition = "No Op (one frame worth)";
-
-		//Bitstream Final Commands and Start Up
-		else if (boost::iequals(h_, "00000005")) CMD_Definition = "CMD Write Packet Data (START)";
-		else if (boost::iequals(h_, "3000A001")) CMD_Definition = "CTL Write Packet Header";
-		else if (boost::iequals(h_, "30000001")) CMD_Definition = "CRC Write Packet Header";
-		else if (boost::iequals(h_, "0000000D")) CMD_Definition = "CMD Write Packet Data (DESYNC)";
-
-		//Frame End
-		else if (boost::iequals(h_, "30010001")) CMD_Definition = "LOUT Write (End of Frame)";
-
-
-		else CMD_Definition = "Data";
-
-	}
-};
-
 
 #endif

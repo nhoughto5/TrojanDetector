@@ -18,10 +18,10 @@ void Frame::addWord(Word t) {
 void Frame::setGroupType(std::string x) {
 	groupType = x;
 }
-void Frame::setCRC(Word x) {
+void Frame::setCRC(Word& x) {
 	CRC = x;
 }
-void Frame::setFrameAddress(Word &x) {
+std::string Frame::setFrameAddress(Word &x) {
 	x.setToAddress();
 	std::stringstream ss;
 	ss << std::hex << x.hexWord;
@@ -40,8 +40,10 @@ void Frame::setFrameAddress(Word &x) {
 	majorAddressStr = major.to_string();
 	minorAddressStr = minor.to_string();
 	wordAddressStr = word.to_string();
+	std::string groupt = computeFrameType(blockAddressInt, majorAddressInt, minorAddressInt, wordAddressInt);
+	//x.groupType = groupt;
 	frameAddress = x;
-	computeFrameType(blockAddressInt, majorAddressInt, minorAddressInt, wordAddressInt, frameAddress);
+	return groupt;
 }
 
 std::string Frame::getGroupType() {
@@ -61,7 +63,7 @@ template<size_t bits> std::bitset<bits> Frame::subset(std::bitset<bits> set, int
 	return set >> min;
 }
 
-void Frame::computeFrameType(int block, int major, int minor, int word, Word& word_) {
+std::string Frame::computeFrameType(int block, int major, int minor, int word) {
 	if (block == 0) {
 		if (major == 0) {
 			if (minor == 0) {
@@ -84,7 +86,7 @@ void Frame::computeFrameType(int block, int major, int minor, int word, Word& wo
 			groupType = "IOI_L";
 		}
 		else if (major == 3 || major == 4 || major == 5 || major == 6 || major == 7 || major == 8) {
-			groupType = "CLB: Col: " + major;
+			groupType = "CLB: Col: " + std::to_string(major);
 		}
 		else if (major == 9) {
 			groupType = "IOI_R";
@@ -121,5 +123,5 @@ void Frame::computeFrameType(int block, int major, int minor, int word, Word& wo
 	else {
 		groupType = "Unknown";
 	}
-	word_.groupType = groupType;
+	return groupType;
 }

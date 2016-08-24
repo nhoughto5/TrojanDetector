@@ -8,6 +8,7 @@
 #include <boost/algorithm/string.hpp>
 #include "Structs.h"
 #include "Frame.h"
+#include "Word.h"
 class BitStreamAnalyzer
 {
 public:
@@ -21,6 +22,7 @@ public:
 	std::vector<std::string> getHexByteValues();
 	std::string getPath();
 private:
+	void printFiles();
 	std::string hexFormat(int num);
 	std::string path;
 	std::vector<std::string> hexByteValues;

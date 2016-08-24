@@ -60,12 +60,22 @@ void BitStreamAnalyzer::makeFrameList() {
 				temp->addWord(*(++it));
 			}
 			temp->setCRC(*(++it));
-			if ((++it)->wordType == LOUT) {
-				temp->setFrameAddress(*(++it));
+
+			//Find frame address at end of frames   || ((it->wordType == Config_Data) && (boost::iequals(std::next(it, 1)->CMD_Definition, "CMD Write Packet Data (GRESTORE)")))
+			if (std::next(it, 2)->wordType == FRDI_Write_Type1 && it->wordType == Config_Data) {
+				std::next(it, 1)->setWordType(Frame_Address);
+				std::next(it, 1)->setGroupType(temp->setFrameAddress(*(std::next(it, 1))));
 			}
-			else {
-				temp->setFrameAddress(*it);
+			if (std::next(it, 3)->wordType == FRDI_Write_Type1 && it->wordType == Config_Data) {
+				std::next(it, 2)->setWordType(Frame_Address);
+				std::next(it, 2)->setGroupType(temp->setFrameAddress(*(std::next(it, 2))));
 			}
+			//if ((++it)->wordType == LOUT) {
+			//	(--it)->setGroupType(temp->setFrameAddress(*(++it)));
+			//}
+			//else {
+			//	it->setGroupType(temp->setFrameAddress(*it));
+			//}
 			frameList.push_back(*temp);
 		}
 	}
@@ -223,7 +233,7 @@ void BitStreamAnalyzer::printFiles() {
 	summaryFile << "WordNumber     CommandType                                                     hexValue(hex)     byteOffset(hex)     BitOffset(int)\n";
 	const char seperator = ' ';
 	int  emptyCount = 0, numWidth = 15, typLength = 64, hexLength = 16, byteLength = 18, bitLength = 20;
-	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
+	for (std::vector<Word>::iterator it = wordList.begin(); it != wordList.end(); ++it) {
 		//Print to full word file
 		wordFile
 			<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
@@ -231,8 +241,8 @@ void BitStreamAnalyzer::printFiles() {
 			<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
 			<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
 			<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber;
-		if (it->wordType == FRDI_Write_Type1) {
-			wordFile << "      GroupType: " + it->groupType;
+		if (it->getWordType() == Frame_Address) {
+			wordFile << "      GroupType: " + it->getGroupType();
 		}
 		wordFile << "\n";
 
@@ -263,8 +273,8 @@ void BitStreamAnalyzer::printFiles() {
 				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
 				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
 				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber;
-			if (it->wordType == FRDI_Write_Type1) {
-				summaryFile << "GroupType: " + it->groupType;
+			if (it->getWordType() == Frame_Address) {
+				summaryFile << "GroupType: " + it->getGroupType();
 			}
 			summaryFile << "\n";
 		}		
