@@ -160,7 +160,6 @@
     <ClCompile Include="src\DeviceModel.cpp" />
     <ClCompile Include="src\Analyzer.cpp" />
     <ClCompile Include="src\Device.cpp" />
-    <ClCompile Include="src\BitStreamReader.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_trojandetector.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -183,6 +182,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\trojandetector.cpp" />
     <ClCompile Include="src\Synthesizer.cpp" />
+    <ClCompile Include="src\Word.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\trojandetector.h">
@@ -225,6 +225,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Word.h" />
     <CustomBuild Include="include\BitStreamParser.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing BitStreamParser.h...</Message>
@@ -249,7 +250,6 @@
     <ClInclude Include="include\DeviceModel.h" />
     <ClInclude Include="include\Analyzer.h" />
     <ClInclude Include="include\Device.h" />
-    <ClInclude Include="include\BitStreamReader.h" />
     <ClInclude Include="GeneratedFiles\ui_trojandetector.h" />
     <ClInclude Include="include\Enums.h" />
     <ClInclude Include="include\Library.h" />
@@ -300,7 +300,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Extra\schematicTemplate.xml" />
+    <Xml Include="Extra\schematicTemplateXA.xml" />
+    <Xml Include="Extra\schematicTemplateXC.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

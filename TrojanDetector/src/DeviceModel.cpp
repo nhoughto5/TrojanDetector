@@ -13,8 +13,8 @@ DeviceModel::~DeviceModel()
 
 std::vector<std::string> DeviceModel::getDefinedDevices() {
 	std::vector<std::string> listOfDefinedDevices;
-	listOfDefinedDevices.push_back("Spartan 3E 100");
-
+	listOfDefinedDevices.push_back("Spartan Automotive 3E 100");
+	listOfDefinedDevices.push_back("Spartan XC3S50");
 	return listOfDefinedDevices;
 }
 
@@ -134,6 +134,17 @@ void DeviceModel::setDevice_Xa3s100E() {
 	pinSites.push_back(IO_Site("DIFFS", "PAD105", 105, 5, "IO_L02N_3/VREF_3", 3, "LIOIS_X0Y20", true, Coordinate(0, 1)));
 	pinSites.push_back(IO_Site("DIFFM", "PAD108", 108, 2, "IO_L01P_3", 3, "LIOIS_X0Y22", true, Coordinate(0, 1)));
 	pinSites.push_back(IO_Site("DIFFS", "PAD107", 107, 3, "IO_L01N_3", 3, "LIOIS_X0Y22", true, Coordinate(0, 1)));
+}
+
+void DeviceModel::setDevice_XC3S50() {
+	LUTCoordinates.clear();
+	int maxX = 23, maxY = 31;
+	//==== Set LUT coordinates for device ==== //
+	for (int y = 0; y <= maxY; ++y) {
+		for (int x = 0; x <= maxX; ++x) {
+			LUTCoordinates.push_back(Coordinate(x, y));
+		}
+	}
 }
 
 std::vector<Coordinate> DeviceModel::getLUTCoordinates() {

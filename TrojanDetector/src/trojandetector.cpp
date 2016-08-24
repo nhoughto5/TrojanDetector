@@ -12,6 +12,7 @@ TrojanDetector::TrojanDetector(QWidget *parent)	:
 	definedModels = Model.getDefinedDevices();
 	for (std::vector<std::string>::const_iterator it = definedModels.begin(); it != definedModels.end(); ++it) {
 		ui.deviceModelComboBox->addItem(QString::fromStdString(*it));
+		ui.deviceModelComboBox_2->addItem(QString::fromStdString(*it));
 	}
 	definedOperations = parser.getDefinedParseOperations();
 	for (std::vector<std::string>::const_iterator it = definedOperations.begin(); it != definedOperations.end(); ++it) {
@@ -196,6 +197,7 @@ void TrojanDetector::on_synthesizeBtn_Clicked() {
 		ui.synthesisTextBox->setText("Synthesizing...");
 		synthPathSet = false;
 		syn.setPath(synthesisDir.toLocal8Bit().constData());
+		syn.setDeviceType(ui.deviceModelComboBox_2->currentText().toLocal8Bit().constData());
 		syn.singleSynthesis();
 		ui.synthesisTextBox->setText("Synthesis Complete");
 	}

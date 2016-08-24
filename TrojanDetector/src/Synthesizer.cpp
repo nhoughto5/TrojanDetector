@@ -9,6 +9,10 @@ Synthesizer::~Synthesizer()
 {
 }
 
+void Synthesizer::setDeviceType(std::string model) {
+	deviceModel = model;
+}
+
 void Synthesizer::singleSynthesis() {
 	emit sendPercentSynthesized(0);
 	synthesisSetup();
@@ -155,27 +159,27 @@ void Synthesizer::synthesisSetup() {
 void Synthesizer::makeUCF(DeviceType deviceType, Coordinate coordinate) {
 	std::ofstream ucfFile;
 	ucfFile.open(path + "item.ucf");
-	ucfFile << "NET \"XLXN_8\" LOC = P2;\n";
-	ucfFile << "NET \"XLXN_7\" LOC = P3;\n";
+	ucfFile << "NET \"XLXN_3\" LOC = P91;\n";
+	ucfFile << "NET \"XLXN_2\" LOC = P92;\n";
+	ucfFile << "NET \"XLXN_1\" LOC = P89;\n";
 	if (deviceType == F_LUT) {
-		ucfFile << "INST \"XLXI_11\" BEL = F;\n";
+		ucfFile << "INST \"XLXI_1\" BEL = F;\n";
 	}
 	else if (deviceType == G_LUT)
 	{
-		ucfFile << "INST \"XLXI_11\" BEL = G;\n";
+		ucfFile << "INST \"XLXI_1\" BEL = G;\n";
 	}
 	else {
 
 	}
-	ucfFile << "INST \"XLXI_11\" LOC = SLICE_X" << coordinate.X << "Y" << coordinate.Y << ";\n";
-	ucfFile << "NET \"XLXN_6\" LOC = P98;\n";
+	ucfFile << "INST \"XLXI_1\" LOC = SLICE_X" << coordinate.X << "Y" << coordinate.Y << ";\n";
 	ucfFile.close();
 }
 
 void Synthesizer::makeInitFiles() {
 	std::ofstream schematicFile;
 	std::fstream xml;
-	xml.open("Extra/schematicTemplate.xml");
+	xml.open("Extra/schematicTemplateXC.xml");
 	schematicFile.open(path + "item.sch");
 	std::string line;
 	while (xml.good())
@@ -190,7 +194,14 @@ void Synthesizer::makeInitFiles() {
 
 	std::ofstream sch2HdlBatchFile;
 	sch2HdlBatchFile.open(path + "sch2HdlBatchFile");
-	sch2HdlBatchFile << "sch2hdl,-intstyle,ise,-family,aspartan3e,-flat,-suppress,-vhdl," + path + "item.vhf,-w," + path + "item.sch";
+
+	if (deviceModel.compare("Spartan 3E 100") == 0) {
+		sch2HdlBatchFile << "sch2hdl,-intstyle,ise,-family,aspartan3e,-flat,-suppress,-vhdl," + path + "item.vhf,-w," + path + "item.sch";
+	}
+	else if (deviceModel.compare("Spartan XC3S50") == 0) {
+		sch2HdlBatchFile << "sch2hdl,-intstyle,ise,-family,spartan3,-flat,-suppress,-vhdl," + path + "item.vhf,-w," + path + "item.sch";
+	}
+	
 	sch2HdlBatchFile.close();
 
 	std::ofstream prjFile;
@@ -211,7 +222,12 @@ void Synthesizer::makeInitFiles() {
 	xstFile << "-ifmt mixed\n";
 	xstFile << "-ofn item\n";
 	xstFile << "-ofmt NGC\n";
-	xstFile << "-p xa3s100e-4-vqg100\n";
+	if (deviceModel.compare("Spartan 3E 100") == 0) {
+		xstFile << "-p xa3s100e-4-vqg100\n";
+	}
+	else if (deviceModel.compare("Spartan XC3S50") == 0) {
+		xstFile << "-p xc3s50-4-vq100\n";
+	}	
 	xstFile << "-top item\n";
 	xstFile << "-opt_mode Speed\n";
 	xstFile << "-opt_level 1\n";

@@ -39,55 +39,6 @@ void BitStreamAnalyzer::makeWordList(std::string binFilePath) {
 	}
 	buffer.clear();
 	content.clear();
-
-	std::ofstream wordFile, summaryFile;
-	wordFile.open("BitstreamWordList.txt");
-	summaryFile.open("BitStreamSummary.txt");
-	wordFile << "WordNumber     CommandType                          hexValue(hex)     byteOffset(hex)     BitOffset(int)\n";
-	summaryFile << "WordNumber     CommandType                          hexValue(hex)     byteOffset(hex)     BitOffset(int)\n";
-	const char seperator = ' ';
-	int  emptyCount = 0, numWidth = 15, typLength = 37, hexLength = 16, byteLength = 18, bitLength = 20;
-	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
-		//Print to full word file
-		wordFile
-			<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
-			<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
-			<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
-			<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
-			<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber << "\n";
-
-		//Print to Summary word file
-		if (boost::iequals(it->hexWord, "00000000") && emptyCount < 2) {
-			++emptyCount;
-			summaryFile
-				<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
-				<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
-				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
-				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
-				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber << "\n";
-		}
-		if (boost::iequals(it->hexWord, "00000000") && emptyCount == 2) {
-			++emptyCount;
-			summaryFile
-				<< std::left << std::setw(numWidth) << std::setfill(seperator) << "..."
-				<< std::left << std::setw(typLength) << std::setfill(seperator) << "..."
-				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << "..."
-				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << "..."
-				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << "..." << "\n";
-		}
-		if (!boost::iequals(it->hexWord, "00000000")) {
-			emptyCount = 0;
-			summaryFile
-				<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
-				<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
-				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
-				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
-				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber << "\n";
-		}
-
-	}
-	wordFile.close();
-	summaryFile.close();
 	makeFrameList();
 	return;
 }
@@ -97,30 +48,51 @@ void BitStreamAnalyzer::makeFrameList() {
 	if (wordList.empty()) {
 		return;
 	}
+	int frameWordCount = 0;
 	bool firstFrame;
 	Frame* temp;
-	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
-		if (boost::iequals(it->hexWord, "00000001")) {
-			dataStart = true;
+	int frameLengthCount = 0;
+	for (std::vector<Word>::iterator it = wordList.begin(); it != wordList.end(); ++it) {
+		if (it->wordType == FRDI_Write_Type1) {
 			temp = new Frame();
-			continue;
-		}
-		if (dataStart) {
-			//Create a new frame
-			if (boost::iequals(it->hexWord, "30010001")) {
-				frameList.push_back(*temp);
-				temp = new Frame();
+			frameLengthCount = it->frameLength;
+			for (int i = 0; i < frameLengthCount; ++i) {
+				temp->addWord(*(++it));
 			}
-			//Check that it is not tail data or frame type definition CMD words
-			if (dataEnd && (boost::iequals(it->CMD_Definition, "Empty or Unconfigured") || boost::iequals(it->CMD_Definition, "Data"))) {
-				temp->addWord(*it);
+			temp->setCRC(*(++it));
+			if ((++it)->wordType == LOUT) {
+				temp->setFrameAddress(*(++it));
 			}
-		}
-		//Reached the tail information
-		if (boost::iequals(it->hexWord, "30008001")) {
-			dataEnd = true;
+			else {
+				temp->setFrameAddress(*it);
+			}
+			frameList.push_back(*temp);
 		}
 	}
+	printFiles();
+	//for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
+	//	if (boost::iequals(it->hexWord, "00000001")) {
+	//		dataStart = true;
+	//		temp = new Frame();
+	//		continue;
+	//	}
+	//	if (dataStart) {
+	//		Create a new frame
+	//		if (boost::iequals(it->hexWord, "30010001")) {
+	//			frameList.push_back(*temp);
+	//			temp = new Frame();
+	//		}
+	//		Check that it is not tail data or frame type definition CMD words
+	//		if (dataEnd && (boost::iequals(it->CMD_Definition, "Empty or Unconfigured") || boost::iequals(it->CMD_Definition, "Data"))) {
+	//			temp->addWord(*it);
+	//			++frameWordCount;
+	//		}
+	//	}
+	//	Reached the tail information
+	//	if (boost::iequals(it->hexWord, "30008001")) {
+	//		dataEnd = true;
+	//	}
+	//}
 }
 
 std::string BitStreamAnalyzer::getPath() {
@@ -241,4 +213,62 @@ std::vector<std::string> BitStreamAnalyzer::getHexByteValues() {
 }
 void BitStreamAnalyzer::clear() {
 	hexByteValues.clear();
+}
+
+void BitStreamAnalyzer::printFiles() {
+	std::ofstream wordFile, summaryFile;
+	wordFile.open("BitstreamWordList.txt");
+	summaryFile.open("BitStreamSummary.txt");
+	wordFile << "WordNumber     CommandType                                                     hexValue(hex)     byteOffset(hex)     BitOffset(int)\n";
+	summaryFile << "WordNumber     CommandType                                                     hexValue(hex)     byteOffset(hex)     BitOffset(int)\n";
+	const char seperator = ' ';
+	int  emptyCount = 0, numWidth = 15, typLength = 64, hexLength = 16, byteLength = 18, bitLength = 20;
+	for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
+		//Print to full word file
+		wordFile
+			<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
+			<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
+			<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
+			<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
+			<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber;
+		if (it->wordType == FRDI_Write_Type1) {
+			wordFile << "      GroupType: " + it->groupType;
+		}
+		wordFile << "\n";
+
+		//Print to Summary word file
+		if (boost::iequals(it->hexWord, "00000000") && emptyCount < 2) {
+			++emptyCount;
+			summaryFile
+				<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
+				<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
+				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
+				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
+				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber << "\n";
+		}
+		if (boost::iequals(it->hexWord, "00000000") && emptyCount == 2) {
+			++emptyCount;
+			summaryFile
+				<< std::left << std::setw(numWidth) << std::setfill(seperator) << "..."
+				<< std::left << std::setw(typLength) << std::setfill(seperator) << "..."
+				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << "..."
+				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << "..."
+				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << "..." << "\n";
+		}
+		if (!boost::iequals(it->hexWord, "00000000")) {
+			emptyCount = 0;
+			summaryFile
+				<< std::left << std::setw(numWidth) << std::setfill(seperator) << it->wordNumber
+				<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
+				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
+				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
+				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber;
+			if (it->wordType == FRDI_Write_Type1) {
+				summaryFile << "GroupType: " + it->groupType;
+			}
+			summaryFile << "\n";
+		}		
+	}
+	wordFile.close();
+	summaryFile.close();
 }

@@ -14,6 +14,9 @@ void BitStreamParser::startParse(std::string model, std::string operation, std::
 	if (model.compare("Spartan 3E 100") == 0) {
 		Model.setDevice_Xa3s100E();
 	}
+	else if (model.compare("Spartan XC3S50") == 0) {
+		Model.setDevice_XC3S50();
+	}
 	else {
 		std::cerr << "Unrecognized device model";
 		exit(-1);
