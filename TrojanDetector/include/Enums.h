@@ -10,5 +10,5 @@ enum IOBType { DIFFM, DIFFS, IOB, DIFFMI, DIFFSI, IBUF };
 
 enum ColumnType {TERM_L, IOI_L, CLB, BRAM, BRAM_IntCnct, GCLK, IOI_R, TERM_R};
 
-enum WordType {Config_Data, FRDI_Write_Type1, LOUT, Frame_Address, NA};
+enum WordType {Config_Data, FRDI_Write_Type1, LOUT, Frame_Address, CRC, NA};
 #endif

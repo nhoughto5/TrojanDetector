@@ -41,7 +41,6 @@ std::string Frame::setFrameAddress(Word &x) {
 	minorAddressStr = minor.to_string();
 	wordAddressStr = word.to_string();
 	std::string groupt = computeFrameType(blockAddressInt, majorAddressInt, minorAddressInt, wordAddressInt);
-	//x.groupType = groupt;
 	frameAddress = x;
 	return groupt;
 }
@@ -76,7 +75,7 @@ std::string Frame::computeFrameType(int block, int major, int minor, int word) {
 				groupType = "CENTER";
 			}
 			else {
-				groupType = "Block: 0, Major: 0, Minor: NA";
+				groupType = "Block: 0, Major: 0, Minor: NA(" + std::to_string(minor) + ")";
 			}
 		}
 		else if (major == 1) {
@@ -95,7 +94,7 @@ std::string Frame::computeFrameType(int block, int major, int minor, int word) {
 			groupType = "TERM_R";
 		}
 		else {
-			groupType = "Block: 0, Major: NA";
+			groupType = "Block: 0, Major: NA (" + std::to_string(major) + "), Minor: (" + std::to_string(minor) + ")";
 		}
 	}
 	else if (block == 1) {
@@ -106,7 +105,7 @@ std::string Frame::computeFrameType(int block, int major, int minor, int word) {
 			groupType = "BRAM, RIGHT";
 		}
 		else {
-			groupType = "Block: 1, Major: NA";
+			groupType = "Block: 1, Major: NA (" + std::to_string(major) + "), Minor: (" + std::to_string(minor) + ")";
 		}
 	}
 	else if (block == 2) {
@@ -117,7 +116,7 @@ std::string Frame::computeFrameType(int block, int major, int minor, int word) {
 			groupType = "BRAM_INIT, RIGHT";
 		}
 		else {
-			groupType = "Block: 2, Major: NA";
+			groupType = "Block: 2, Major: NA (" + std::to_string(major) + "), Minor: (" + std::to_string(minor) + ")";
 		}
 	}
 	else {

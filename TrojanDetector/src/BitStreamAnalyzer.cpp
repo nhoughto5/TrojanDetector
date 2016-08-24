@@ -60,49 +60,21 @@ void BitStreamAnalyzer::makeFrameList() {
 				temp->addWord(*(++it));
 			}
 			temp->setCRC(*(++it));
-
+			it->CMD_Definition = "CRC, Value: " + it->hexWord;
+			it->setWordType(CRC);
 			//Find frame address at end of frames   || ((it->wordType == Config_Data) && (boost::iequals(std::next(it, 1)->CMD_Definition, "CMD Write Packet Data (GRESTORE)")))
-			if (std::next(it, 2)->wordType == FRDI_Write_Type1 && it->wordType == Config_Data) {
+			if (std::next(it, 2)->wordType == FRDI_Write_Type1) {
 				std::next(it, 1)->setWordType(Frame_Address);
 				std::next(it, 1)->setGroupType(temp->setFrameAddress(*(std::next(it, 1))));
 			}
-			if (std::next(it, 3)->wordType == FRDI_Write_Type1 && it->wordType == Config_Data) {
+			if (std::next(it, 3)->wordType == FRDI_Write_Type1) {
 				std::next(it, 2)->setWordType(Frame_Address);
 				std::next(it, 2)->setGroupType(temp->setFrameAddress(*(std::next(it, 2))));
 			}
-			//if ((++it)->wordType == LOUT) {
-			//	(--it)->setGroupType(temp->setFrameAddress(*(++it)));
-			//}
-			//else {
-			//	it->setGroupType(temp->setFrameAddress(*it));
-			//}
 			frameList.push_back(*temp);
 		}
 	}
 	printFiles();
-	//for (std::vector<Word>::const_iterator it = wordList.begin(); it != wordList.end(); ++it) {
-	//	if (boost::iequals(it->hexWord, "00000001")) {
-	//		dataStart = true;
-	//		temp = new Frame();
-	//		continue;
-	//	}
-	//	if (dataStart) {
-	//		Create a new frame
-	//		if (boost::iequals(it->hexWord, "30010001")) {
-	//			frameList.push_back(*temp);
-	//			temp = new Frame();
-	//		}
-	//		Check that it is not tail data or frame type definition CMD words
-	//		if (dataEnd && (boost::iequals(it->CMD_Definition, "Empty or Unconfigured") || boost::iequals(it->CMD_Definition, "Data"))) {
-	//			temp->addWord(*it);
-	//			++frameWordCount;
-	//		}
-	//	}
-	//	Reached the tail information
-	//	if (boost::iequals(it->hexWord, "30008001")) {
-	//		dataEnd = true;
-	//	}
-	//}
 }
 
 std::string BitStreamAnalyzer::getPath() {
@@ -254,7 +226,11 @@ void BitStreamAnalyzer::printFiles() {
 				<< std::left << std::setw(typLength) << std::setfill(seperator) << it->CMD_Definition
 				<< "0x" << std::left << std::setw(hexLength) << std::setfill(seperator) << boost::to_upper_copy<std::string>(it->hexWord)
 				<< "0x" << std::left << std::setw(byteLength) << std::setfill(seperator) << hexFormat(it->byteNumber)
-				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber << "\n";
+				<< std::left << std::setw(bitLength) << std::setfill(seperator) << std::dec << it->bitNumber;
+			if (it->getWordType() == Frame_Address) {
+				summaryFile << "GroupType: " + it->getGroupType();
+			}
+			summaryFile << "\n";
 		}
 		if (boost::iequals(it->hexWord, "00000000") && emptyCount == 2) {
 			++emptyCount;
